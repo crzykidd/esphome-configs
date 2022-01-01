@@ -1,14 +1,14 @@
 
 substitutions:
-  devicename: s31-desktop-ups
-  friendly_name: Desktop Ups
-  hassname: S31-Desktop-Ups
+  devicename: back-flood-left
+  friendly_name: Back Flood Left
+  hassname: Back-Flood-Left
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
   restore_mode: RESTORE_DEFAULT_ON
   
 
-<<: !include .device-sonoff_s31.yaml
+<<: !include .device-sonoff_mini.yaml
 <<: !include .base-wifi.yaml
 <<: !include .base-web_server.yaml
 <<: !include .base-hass-ota.yaml

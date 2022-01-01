@@ -38,6 +38,7 @@ sensor:
     unit_of_measurement: kWh
     
   - platform: cse7766
+    update_interval: 30s   
     current:
       name: $hassname Energy Current   #Get current Amps
       accuracy_decimals: 1

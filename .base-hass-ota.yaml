@@ -1,0 +1,4 @@
+api:   #Enable API
+  password: !secret api_password
+ota:   #Enable OTA updates
+  password: !secret ota_password
