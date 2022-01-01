@@ -48,6 +48,8 @@ switch:
     pin: GPIO12
     id: relay_1
     restore_mode: $restore_mode
+  - platform: restart    #Adds a reboot switch in Home Assistant to power cycle the device
+    name: $hassname Reboot
     
 sensor:
   - platform: wifi_signal   #Get strength of wifi signal
@@ -56,6 +58,7 @@ sensor:
     
   - platform: uptime
     id: uptime_sensor     #gets uptime in human readable format
+    name: $hassname uptime in seconds
     update_interval: 30s
     on_raw_value:  # lambda code converts seconds to friendly format
       then:
@@ -77,7 +80,7 @@ sensor:
               ).c_str();
 text_sensor:
   - platform: template
-    name: Uptime Sensor  #Human Readable format
+    name: $hassname Friendly Uptime  #Human Readable format
     id: uptime_human
     entity_category: diagnostic
     icon: mdi:clock-start
