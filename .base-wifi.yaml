@@ -1,0 +1,8 @@
+wifi:
+  ssid: !secret iot_ssid
+  password: !secret iotnetwork_password
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: $devicename
+    password: !secret ap_wifi
+captive_portal:

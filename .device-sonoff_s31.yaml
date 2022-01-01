@@ -1,0 +1,97 @@
+# From .base-sonoff_s31.yaml
+# Start config for Sonoff S31 Configuration
+
+esphome:
+  name: $devicename
+  platform: ESP8266
+  board: esp01_1m
+
+logger:
+  baud_rate: 0 # (UART logging interferes with cse7766)
+uart:
+  rx_pin: RX
+  baud_rate: 4800
+
+
+binary_sensor:
+    
+  - platform: gpio  #Button on Side of S31
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: $hassname Button
+    on_press:
+      - switch.toggle: relay  #Toggle the state of the relay
+  - platform: status   #Get Current status of API connection
+    name: $hassname Status
+
+sensor:
+  - platform: wifi_signal   #Get strength of wifi signal
+    name: $hassname WiFi Signal
+    update_interval: 60s
+  - platform: total_daily_energy   #Calculate daily Energy usage
+    name: $hassname Energy Today
+    power_id: S31_power
+    filters:
+      - multiply: 0.001   #changes from Wh to kWh
+    unit_of_measurement: kWh
+    
+  - platform: cse7766
+    current:
+      name: $hassname Energy Current   #Get current Amps
+      accuracy_decimals: 1
+    voltage:
+      name: $hassname Energy Voltage   #Get Current Volts
+      accuracy_decimals: 1
+    power:
+      name: $hassname Energy Power  #Get current Power draw in Watts
+      accuracy_decimals: 1
+      id: S31_power
+    energy:   
+      name: $hassname Energy Total   #Get Energy total since last flash.
+      filters:
+        - multiply: 0.001
+      unit_of_measurement: kWh  #changes from Wh to kWh
+  - platform: uptime
+    id: uptime_sensor     #gets uptime in human readable format
+    update_interval: 30s
+    on_raw_value:  # lambda code converts seconds to friendly format
+      then:
+        - text_sensor.template.publish:
+            id: uptime_human
+            state: !lambda |-
+              int seconds = round(id(uptime_sensor).raw_state);
+              int days = seconds / (24 * 3600);
+              seconds = seconds % (24 * 3600);
+              int hours = seconds / 3600;
+              seconds = seconds % 3600;
+              int minutes = seconds /  60;
+              seconds = seconds % 60;
+              return (
+                (days ? to_string(days) + "d " : "") +
+                (hours ? to_string(hours) + "h " : "") +
+                (minutes ? to_string(minutes) + "m " : "") +
+                (to_string(seconds) + "s")
+              ).c_str();
+text_sensor:
+  - platform: template
+    name: Uptime Sensor  #Human Readable format
+    id: uptime_human
+    entity_category: diagnostic
+    icon: mdi:clock-start
+time:
+  - platform: homeassistant   #uses Home Assistant as time source
+    id: homeassistant_time
+switch:
+  - platform: gpio
+    name: $hassname   #Actual switch to turn device on and off.
+    pin: GPIO12
+    id: relay
+    restore_mode: $restore_mode
+
+  - platform: restart    #Adds a restart switch in Home Assistant to power cycle the device
+    name: $hassname Restart
+
+status_led:
+  pin: GPIO13
