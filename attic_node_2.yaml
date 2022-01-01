@@ -1,0 +1,86 @@
+esphome:
+  name: attic_node_2
+  platform: ESP8266
+  board: d1_mini_pro
+
+
+#Attic Sensor 2 is located in the middle of the house and measures temp and humidity.
+
+substitutions:
+  devicename: attic_node_2
+  upper_devicename: "Attic Node 2"
+
+
+# Common config for ESP8266 running on Wemos D1 Mini
+# 
+
+wifi:
+  ssid: !secret iot_ssid
+  password: !secret iotnetwork_password
+  domain: !secret domain
+  fast_connect: true
+
+mqtt:
+  broker: !secret mqtt_broker
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+  topic_prefix: ESPHome/$devicename
+  birth_message:
+    topic: $upper_devicename/topic
+    payload: 
+  will_message:
+    topic: $upper_devicename/topic
+    payload: 
+  on_message:
+    - topic: ESPHome/ota_mode/$devicename
+      payload: 'ON'
+      then:
+        - deep_sleep.prevent: deep_sleep_1
+    - topic: ESPHome/ota_mode_off/$devicename
+      payload: 'OFF'
+      then:
+        - logger.log: OTA Mode set to OFF from MQTT
+        - deep_sleep.enter: deep_sleep_1  
+    
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+
+ota:
+  password: !secret ota_password
+  
+
+
+ 
+i2c:
+  sda: 4
+  scl: 5
+sensor:
+  - platform: am2320
+    temperature:
+      name: "$upper_devicename Temperature"
+      unit_of_measurement: "°C"
+    humidity:
+      name: "$upper_devicename Humidity"
+    update_interval: 3sec
+
+  - platform: uptime
+    name: "$upper_devicename runtime"
+    update_interval: 2s
+    
+    
+  - platform: wifi_signal
+    name: "$upper_devicename WiFi Signal"
+    update_interval: 5sec     
+  
+switch:
+  - platform: restart
+    name: "$upper_devicename restart"
+
+deep_sleep:
+  id: deep_sleep_1 
+  run_duration: 10sec
+  sleep_duration: 60sec 
+

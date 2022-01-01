@@ -1,0 +1,21 @@
+# Basic Config
+esphome:
+  name: s31-patio-heater
+  platform: ESP8266
+  board: esp01_1m
+
+substitutions:
+  devicename: s31-patio-heater
+  friendly_name: Patio Heater
+  hassname: S31-Patio-Heater
+# Set the restore mode for after power outage:  
+# More info:  https://esphome.io/components/switch/gpio.html
+  restore_mode: ALWAYS_OFF
+  
+
+api:   #Enable API
+ota:   #Enable OTA updates
+
+<<: !include .device-sonoff_s31.yaml
+<<: !include .base-wifi.yaml
+<<: !include .base-web_server.yaml

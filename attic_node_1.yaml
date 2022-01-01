@@ -1,0 +1,149 @@
+#Attic Sensor 1 is located in the middle of the house and measures temp and humidity.
+
+substitutions:
+  devicename: attic_node_1
+  upper_devicename: Attic Node 1
+
+
+# Common config for ESP8266 running on Wemos D1 Mini
+# This uses a AM2315 sensor to measure both of these, but has type of AM2320 
+# 
+
+
+esphome:
+  name: $devicename
+  platform: ESP32
+  board: firebeetle32
+
+  
+wifi:
+  ssid: !secret iot_ssid
+  password: !secret iotnetwork_password
+  domain: !secret domain
+  fast_connect: true
+
+mqtt:
+  broker: !secret mqtt_broker
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+  topic_prefix: ESPHome/$devicename
+  birth_message:
+    topic: $upper_devicename/topic
+    payload: 
+  will_message:
+    topic: $upper_devicename/topic
+    payload: 
+  on_message:
+    - topic: ESPHome/ota_mode/$devicename
+      payload: 'ON'
+      then:
+        - deep_sleep.prevent: deep_sleep_1
+    - topic: ESPHome/ota_mode_off/$devicename
+      payload: 'OFF'
+      then:
+        - logger.log: OTA Mode set to OFF from MQTT
+        - deep_sleep.enter: deep_sleep_1  
+    
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+
+ota:
+  password: !secret ota_password
+  
+i2c:
+  sda: 21
+  scl: 22
+
+
+ 
+
+sensor:
+  - platform: am2320
+    temperature:
+      name: "$upper_devicename Temperature"
+      unit_of_measurement: "°C"
+    humidity:
+      name: "$upper_devicename Humidity"
+    update_interval: 2sec
+
+  - platform: uptime
+    name: "$upper_devicename runtime"
+    update_interval: 5s
+    
+    
+#using 68k R1 and 22k R2 for voltage divider
+  - platform: adc
+    pin: A0
+    id: "AZERO"
+    internal: true
+    filters:
+      - multiply: 4.2
+    attenuation: 11db
+    update_interval: 10sec
+    
+    
+  - platform: template
+    name: "$upper_devicename voltage"
+    id: "VOLTS"
+    update_interval: 10sec
+    unit_of_measurement: V
+    accuracy_decimals: 3
+    lambda: |-
+      return id(AZERO).state;
+    
+# - platform: template
+#   name: "$upper_devicename battery"
+#   unit_of_measurement: '%'
+#   update_interval: 120sec
+#   lambda: |-
+#     return ((id(AZERO).state /4.2) * 100.00);
+
+      
+
+  - platform: wifi_signal
+    name: "$upper_devicename WiFi Signal"
+    update_interval: 10sec     
+  
+  - platform: template
+    name: "$upper_devicename Battery"
+    unit_of_measurement: "%"
+    lambda: |-
+      if (id(AZERO).state > 4.2) {
+        return 100;
+      } else if (id(AZERO).state > 4.13){
+        return 90;
+      } else if (id(AZERO).state > 4.06){
+        return 80;
+      } else if (id(AZERO).state > 3.99){
+        return 70;
+      } else if (id(AZERO).state > 3.92){
+        return 60;        
+      } else if (id(AZERO).state > 3.86){
+        return 50;
+      } else if (id(AZERO).state > 3.78){
+        return 40;        
+      } else if (id(AZERO).state > 3.71){
+        return 30;        
+      } else if (id(AZERO).state > 3.64){
+        return 20;      
+      } else if (id(AZERO).state > 3.57){
+        return 10;         
+      } else {
+        return 0;
+      }
+    update_interval: 10s
+
+      
+switch:
+  - platform: restart
+    name: "$upper_devicename restart"
+
+deep_sleep:
+  id: deep_sleep_1 
+  run_duration: 9sec
+  sleep_duration: 15min  
+
+

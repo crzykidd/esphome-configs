@@ -1,0 +1,21 @@
+
+substitutions:
+  devicename: s31-desktop-ups
+  friendly_name: Desktop Ups
+  hassname: S31-Desktop-Ups
+# Set the restore mode for after power outage:  
+# More info:  https://esphome.io/components/switch/gpio.html
+  restore_mode: RESTORE_DEFAULT_ON
+  
+
+api:   #Enable API
+ota:   #Enable OTA updates
+
+<<: !include .device-sonoff_s31.yaml
+<<: !include .base-wifi.yaml
+<<: !include .base-web_server.yaml
+
+
+
+
+
