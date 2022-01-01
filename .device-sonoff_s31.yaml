@@ -82,9 +82,21 @@ text_sensor:
     id: uptime_human
     entity_category: diagnostic
     icon: mdi:clock-start
+  - platform: template
+    name: "$hassname Current Time"   #show current time of device
+    lambda: |-
+      char str[18];
+      time_t currTime = id(homeassistant_time).now().timestamp;
+      strftime(str, sizeof(str), "%y-%m-%d %H:%M:%S", localtime(&currTime));
+      return  { str };
+    update_interval: 30s    
+    entity_category: diagnostic
+    icon: mdi:clock-outline
 time:
   - platform: homeassistant   #uses Home Assistant as time source
     id: homeassistant_time
+    timezone: $timezone
+
 switch:
   - platform: gpio
     name: $hassname   #Actual switch to turn device on and off.

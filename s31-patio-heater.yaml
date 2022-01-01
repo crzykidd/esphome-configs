@@ -3,6 +3,8 @@ substitutions:
   devicename: s31-patio-heater
   friendly_name: Patio Heater
   hassname: S31-Patio-Heater
+  timezone: America/Los_Angeles
+  
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
   restore_mode: ALWAYS_OFF

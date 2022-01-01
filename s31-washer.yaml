@@ -3,6 +3,7 @@ substitutions:
   devicename: s31-washer
   friendly_name: Washer
   hassname: S31-Washer
+  timezone: America/Los_Angeles
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
   restore_mode: RESTORE_DEFAULT_ON

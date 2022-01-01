@@ -3,6 +3,7 @@ substitutions:
   devicename: back-flood-left
   friendly_name: Back Flood Left
   hassname: Back-Flood-Left
+  timezone: America/Los_Angeles
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
   restore_mode: RESTORE_DEFAULT_OFF
