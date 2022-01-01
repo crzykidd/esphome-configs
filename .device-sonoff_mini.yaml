@@ -39,10 +39,48 @@ binary_sensor:
       then:
         - switch.turn_off:
             id: relay_1
+  - platform: status   #Get Current status of API connection
+    name: $hassname Status
 
 switch:
   - platform: gpio
     name: "$hassname"
     pin: GPIO12
     id: relay_1
-    restore_mode: restore_default_off
+    restore_mode: $restore_mode
+    
+sensor:
+  - platform: wifi_signal   #Get strength of wifi signal
+    name: $hassname WiFi Signal
+    update_interval: 60s
+    
+  - platform: uptime
+    id: uptime_sensor     #gets uptime in human readable format
+    update_interval: 30s
+    on_raw_value:  # lambda code converts seconds to friendly format
+      then:
+        - text_sensor.template.publish:
+            id: uptime_human
+            state: !lambda |-
+              int seconds = round(id(uptime_sensor).raw_state);
+              int days = seconds / (24 * 3600);
+              seconds = seconds % (24 * 3600);
+              int hours = seconds / 3600;
+              seconds = seconds % 3600;
+              int minutes = seconds /  60;
+              seconds = seconds % 60;
+              return (
+                (days ? to_string(days) + "d " : "") +
+                (hours ? to_string(hours) + "h " : "") +
+                (minutes ? to_string(minutes) + "m " : "") +
+                (to_string(seconds) + "s")
+              ).c_str();
+text_sensor:
+  - platform: template
+    name: Uptime Sensor  #Human Readable format
+    id: uptime_human
+    entity_category: diagnostic
+    icon: mdi:clock-start
+time:
+  - platform: homeassistant   #uses Home Assistant as time source
+    id: homeassistant_time
