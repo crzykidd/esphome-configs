@@ -5,4 +5,4 @@ wifi:
   ap:
     ssid: $devicename
     password: !secret ap_wifi
-captive_portal:
+captive_portal:   #used so you can modify wifi/upload bin file etc.
