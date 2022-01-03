@@ -1,0 +1,16 @@
+
+substitutions:
+  devicename: mbr-ns-tosha
+  friendly_name: MBR NS Tosha
+  hassname: MBR-NS-Tosha
+  timezone: America/Los_Angeles
+
+# Set the restore mode for after power outage:  
+# More info:  https://esphome.io/components/switch/gpio.html
+  restore_mode: RESTORE_DEFAULT_OFF
+  
+
+<<: !include .device-euri-lis-a1001.yaml
+<<: !include .base-wifi.yaml
+<<: !include .base-web_server.yaml
+<<: !include .base-hass-ota.yaml
