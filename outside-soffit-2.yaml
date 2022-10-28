@@ -1,11 +1,12 @@
 
 substitutions:
-  devicename: back-flood-left
-  friendly_name: Back Flood Left
+  devicename: outside-soffit-2
+  friendly_name: Outside Soffit 2
   timezone: America/Los_Angeles
-  devicetype: Sonoff mini
+  devicetype: Euri A1001 Bulb
   uptime_refresh: 60s
   wifi_refresh: 120s
+
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
   restore_mode: RESTORE_DEFAULT_OFF
@@ -16,8 +17,4 @@ packages:
   web_server: !include .base-web_server.yaml
   hass_ota_base: !include .base-hass-ota.yaml
   update_sensors: !include .base-uptime-sensors.yaml
-  base_device: !include .device-sonoff_mini.yaml
-
-
-
-
+  base_device: !include .device-euri-lis-a1001.yaml

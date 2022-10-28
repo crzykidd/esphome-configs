@@ -1,20 +1,21 @@
 
 substitutions:
   devicename: s31-not-configured
-  friendly_name: Not Configured
-  hassname: S31-Not-Configured
+  friendly_name: S31 Not Configured
   timezone: America/Los_Angeles
+  devicetype: Sonoff S31
+  uptime_refresh: 60s
+  wifi_refresh: 120s
   
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
   restore_mode: RESTORE_DEFAULT_ON
   
 
-<<: !include .device-sonoff_s31.yaml
-<<: !include .base-wifi.yaml
-<<: !include .base-web_server.yaml
-<<: !include .base-hass-ota.yaml
-
-
-
+packages:
+  wifi: !include .base-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  hass_ota_base: !include .base-hass-ota.yaml
+  update_sensors: !include .base-uptime-sensors.yaml
+  base_device: !include .device-sonoff_s31.yaml
 

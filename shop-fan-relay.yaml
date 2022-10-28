@@ -1,0 +1,18 @@
+substitutions:
+  devicename: "shop-fan-relay"
+  friendly_name: Shop Fan Relay
+  timezone: America/Los_Angeles
+  devicetype: Shelly 2.5
+  uptime_refresh: 60s
+  wifi_refresh: 120s
+  max_temp: "70.0"
+  sensor_refresh: 10s
+
+packages:
+  wifi: !include .base-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  hass_ota_base: !include .base-hass-ota.yaml
+  update_sensors: !include .base-uptime-sensors.yaml
+  base_device: !include .device-shelly-25.yaml
+                           
+  

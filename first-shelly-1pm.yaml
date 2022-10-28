@@ -1,0 +1,17 @@
+substitutions:
+  devicename: "first-shelly-1pm"
+  friendly_name: First Shelly 1PM
+  timezone: America/Los_Angeles
+  devicetype: Shelly 1PM
+  uptime_refresh: 60s
+  wifi_refresh: 120s
+  max_temp: "70.0"
+
+packages:
+  wifi: !include .base-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  hass_ota_base: !include .base-hass-ota.yaml
+  update_sensors: !include .base-uptime-sensors.yaml
+  base_device: !include .device-shelly-1pm.yaml
+                           
+  

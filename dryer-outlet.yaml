@@ -1,14 +1,15 @@
 
 substitutions:
-  devicename: back-flood-left
-  friendly_name: Back Flood Left
+  devicename: dryer-outlet
+  friendly_name: Dryer Outlet
   timezone: America/Los_Angeles
-  devicetype: Sonoff mini
+  devicetype: Sonoff S31
   uptime_refresh: 60s
   wifi_refresh: 120s
+  
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
-  restore_mode: RESTORE_DEFAULT_OFF
+  restore_mode: RESTORE_DEFAULT_ON
   
 
 packages:
@@ -16,7 +17,7 @@ packages:
   web_server: !include .base-web_server.yaml
   hass_ota_base: !include .base-hass-ota.yaml
   update_sensors: !include .base-uptime-sensors.yaml
-  base_device: !include .device-sonoff_mini.yaml
+  base_device: !include .device-sonoff_s31.yaml
 
 
 
