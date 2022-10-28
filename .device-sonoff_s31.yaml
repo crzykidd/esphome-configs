@@ -5,6 +5,8 @@ esphome:
   name: $devicename
   platform: ESP8266
   board: esp01_1m
+  comment: $devicetype
+  
 
 logger:
   baud_rate: 0 # (UART logging interferes with cse7766)
@@ -20,92 +22,52 @@ binary_sensor:
       number: GPIO0
       mode: INPUT_PULLUP
       inverted: True
-    name: $hassname Button
+    name: $friendly_name Button
     on_press:
       - switch.toggle: relay  #Toggle the state of the relay
   - platform: status   #Get Current status of API connection
-    name: $hassname Status
+    name: $friendly_name Status
 
 sensor:
-  - platform: wifi_signal   #Get strength of wifi signal
-    name: $hassname WiFi Signal
-    update_interval: 60s
+
   - platform: total_daily_energy   #Calculate daily Energy usage
-    name: $hassname Energy Today
+    name: $friendly_name Energy Today
     power_id: S31_power
+    device_class: energy
+    state_class: total_increasing  #uses total_increasing so HA counts energy correctly.
     filters:
       - multiply: 0.001   #changes from Wh to kWh
     unit_of_measurement: kWh
     
   - platform: cse7766
-    update_interval: 10s   
+    update_interval: 60s   
     current:
-      name: $hassname Energy Current   #Get current Amps
+      name: $friendly_name Energy Current   #Get current Amps
       accuracy_decimals: 1
     voltage:
-      name: $hassname Energy Voltage   #Get Current Volts
+      name: $friendly_name Energy Voltage   #Get Current Volts
       accuracy_decimals: 1
     power:
-      name: $hassname Energy Power  #Get current Power draw in Watts
+      name: $friendly_name Energy Power  #Get current Power draw in Watts
       accuracy_decimals: 1
       id: S31_power
+      device_class: power
+      state_class: measurement
+      force_update: true 
     energy:   
-      name: $hassname Energy Total   #Get Energy total since last flash.
+      name: $friendly_name Energy Total   #Get Energy total since last flash.
       filters:
         - multiply: 0.001
       unit_of_measurement: kWh  #changes from Wh to kWh
-  - platform: uptime
-    id: uptime_sensor     #gets uptime in human readable format
-    name: $hassname uptime in seconds
-    update_interval: 30s
-    on_raw_value:  # lambda code converts seconds to friendly format
-      then:
-        - text_sensor.template.publish:
-            id: uptime_human
-            state: !lambda |-
-              int seconds = round(id(uptime_sensor).raw_state);
-              int days = seconds / (24 * 3600);
-              seconds = seconds % (24 * 3600);
-              int hours = seconds / 3600;
-              seconds = seconds % 3600;
-              int minutes = seconds /  60;
-              seconds = seconds % 60;
-              return (
-                (days ? to_string(days) + "d " : "") +
-                (hours ? to_string(hours) + "h " : "") +
-                (minutes ? to_string(minutes) + "m " : "") +
-                (to_string(seconds) + "s")
-              ).c_str();
-text_sensor:
-  - platform: template
-    name: $hassname Friendly Uptime  #Human Readable format
-    id: uptime_human
-    entity_category: diagnostic
-    icon: mdi:clock-start
-  - platform: template
-    name: "$hassname Current Time"   #show current time of device
-    lambda: |-
-      char str[18];
-      time_t currTime = id(homeassistant_time).now().timestamp;
-      strftime(str, sizeof(str), "%y-%m-%d %H:%M:%S", localtime(&currTime));
-      return  { str };
-    update_interval: 30s    
-    entity_category: diagnostic
-    icon: mdi:clock-outline
-time:
-  - platform: homeassistant   #uses Home Assistant as time source
-    id: homeassistant_time
-    timezone: $timezone
-
+      device_class: energy
+      state_class: total_increasing  #uses total_increasing so HA counts energy correctly.
+ 
 switch:
   - platform: gpio
-    name: $hassname   #Actual switch to turn device on and off.
+    name: $friendly_name   #Actual switch to turn device on and off.
     pin: GPIO12
     id: relay
     restore_mode: $restore_mode
-
-  - platform: restart    #Adds a reboot switch in Home Assistant to power cycle the device
-    name: $hassname Reboot
 
 status_led:
   pin: GPIO13

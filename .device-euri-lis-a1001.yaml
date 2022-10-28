@@ -7,11 +7,12 @@ esphome:
   name: $devicename
   platform: ESP8266
   board: esp01_1m
+  comment: ${devicetype}  
  
 logger:
 light:
   - platform: rgb
-    name: ${hassname} Color
+    name: ${friendly_name} Color
     red: output_red
     green: output_green
     blue: output_blue
@@ -19,7 +20,7 @@ light:
     restore_mode: RESTORE_DEFAULT_OFF
 
   - platform: cwww
-    name: ${hassname} White
+    name: ${friendly_name} White
     warm_white: output_warm_white
     cold_white: output_cold_white
     cold_white_color_temperature: 6200 K
@@ -55,56 +56,4 @@ output:
     max_power: 100%
     frequency: 1000 Hz
 
-
-  
-switch: 
-  - platform: restart    #Adds a reboot switch in Home Assistant to power cycle the device
-    name: $hassname Reboot
-
-sensor:
-  - platform: wifi_signal   #Get strength of wifi signal
-    name: $hassname WiFi Signal
-    update_interval: 60s
-    
-  - platform: uptime
-    id: uptime_sensor     #gets uptime in human readable format
-    name: $hassname uptime in seconds
-    update_interval: 30s
-    on_raw_value:  # lambda code converts seconds to friendly format
-      then:
-        - text_sensor.template.publish:
-            id: uptime_human
-            state: !lambda |-
-              int seconds = round(id(uptime_sensor).raw_state);
-              int days = seconds / (24 * 3600);
-              seconds = seconds % (24 * 3600);
-              int hours = seconds / 3600;
-              seconds = seconds % 3600;
-              int minutes = seconds /  60;
-              seconds = seconds % 60;
-              return (
-                (days ? to_string(days) + "d " : "") +
-                (hours ? to_string(hours) + "h " : "") +
-                (minutes ? to_string(minutes) + "m " : "") +
-                (to_string(seconds) + "s")
-              ).c_str();
-text_sensor:
-  - platform: template
-    name: $hassname Friendly Uptime  #Human Readable format
-    id: uptime_human
-    entity_category: diagnostic
-    icon: mdi:clock-start
-  - platform: template
-    name: "$hassname Current Time"   #show current time of device
-    lambda: |-
-      char str[18];
-      time_t currTime = id(homeassistant_time).now().timestamp;
-      strftime(str, sizeof(str), "%y-%m-%d %H:%M:%S", localtime(&currTime));
-      return  { str };
-    update_interval: 30s    
-    entity_category: diagnostic
-    icon: mdi:clock-outline
-time:
-  - platform: homeassistant   #uses Home Assistant as time source
-    id: homeassistant_time
-    timezone: $timezone
+ 
