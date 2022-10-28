@@ -12,4 +12,6 @@ The devices like s31-desktop-ups.yaml will include the sections needed.
 The Attic nodes are custom temp/humidity devices.
 
 
+Moved to using the new package handler.   This allowed me to move a set of standard sensors for Home Assistant toe .base-uptime=sensors.yaml as well as a number of other things.
+
 
