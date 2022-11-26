@@ -4,8 +4,8 @@ substitutions:
   friendly_name: Back Flood Left
   timezone: America/Los_Angeles
   devicetype: Sonoff mini
-  uptime_refresh: 60s
-  wifi_refresh: 120s
+  uptime_refresh: 300s
+  wifi_refresh: 300s
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
   restore_mode: RESTORE_DEFAULT_OFF
