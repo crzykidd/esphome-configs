@@ -26,7 +26,7 @@ sensor:
       id: "shelly1pm_power"
       device_class: power
       state_class: measurement
-      accuracy_decimals: 0
+      accuracy_decimals: 2
       filters:
       # Map from sensor -> measured value
       - calibrate_linear:

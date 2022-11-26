@@ -1,8 +1,8 @@
 wifi:
   ssid: !secret iot_ssid
   password: !secret iotnetwork_password
-
-
+  domain: .crzynet.local
+  
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: $devicename
