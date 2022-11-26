@@ -1,0 +1,80 @@
+esphome:
+  name: $devicename
+  platform: ESP8266
+  board: esp8285
+  comment: ${devicetype}  
+
+
+
+logger:
+  baud_rate: 0
+
+#external_components:
+# - source:
+#      type: git
+#      url: https://github.com/rnauber/esphome.git
+#      ref: feature/shelly-dimmer
+#    refresh: 1min
+#    components: [ shelly_dimmer ]
+
+uart:
+ tx_pin: 1
+ rx_pin: 3
+ baud_rate: 115200
+ 
+sensor:
+  - platform: ntc
+    sensor: temp_resistance_reading
+    name: ${friendly_name} Temperature
+    unit_of_measurement: "°C"
+    accuracy_decimals: 1
+    icon: "mdi:thermometer"
+    calibration:
+      b_constant: 3350
+      reference_resistance: 10kOhm
+      reference_temperature: 25°C
+
+  - platform: resistance
+    id: temp_resistance_reading
+    sensor: temp_analog_reading
+    configuration: DOWNSTREAM
+    resistor: 32kOhm
+    
+  - platform: adc
+    id: temp_analog_reading
+    pin: A0
+    
+#  - platform: adc
+#    pin: VCC
+#    name: "$friendly_name VCC"
+ 
+light:
+  - platform: shelly_dimmer
+    name: ${friendly_name}
+    id: thislight
+    power:
+      name: ${friendly_name} Power
+    voltage:
+      name: ${friendly_name} Voltage
+    current:
+      name: ${friendly_name} Current
+    max_brightness: 500
+    firmware:
+      version: "51.6"
+      update: true    
+
+      
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO12
+    name: "$friendly_name Switch 1"
+    filters:
+      - delayed_on_off: 100ms
+ 
+  - platform: gpio
+    pin:
+      number: GPIO14
+    name: "$friendly_name Switch 2"
+    filters:
+      - delayed_on_off: 100ms
