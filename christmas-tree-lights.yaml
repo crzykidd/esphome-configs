@@ -1,0 +1,41 @@
+
+substitutions:
+  devicename: christmas-tree-lights
+  friendly_name: Christmas Tree Lights
+  timezone: America/Los_Angeles
+  devicetype: Sonoff S31
+  uptime_refresh: 300s
+  wifi_refresh: 300s
+  
+# Set the restore mode for after power outage:  
+# More info:  https://esphome.io/components/switch/gpio.html
+  restore_mode: RESTORE_DEFAULT_ON
+  
+
+debug:
+  update_interval: 60s
+
+text_sensor:
+  - platform: debug
+    device:
+      name: "Device Info"
+
+sensor:
+  - platform: debug
+    free:
+      name: "Heap Free"
+    fragmentation:
+      name: "Heap Fragmentation"
+    block:
+      name: "Heap Max Block"
+    loop_time:
+      name: "Loop Time"  
+packages:
+  wifi: !include .base-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  hass_ota_base: !include .base-hass-ota.yaml
+  update_sensors: !include .base-uptime-sensors.yaml
+  base_device: !include .device-sonoff_s31.yaml
+
+
+
