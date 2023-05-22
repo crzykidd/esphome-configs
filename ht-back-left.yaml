@@ -5,13 +5,44 @@ substitutions:
   timezone: America/Los_Angeles
   devicetype: Kauf Bulb BR30
   uptime_refresh: 60s
-  wifi_refresh: 120s
+  wifi_refresh: 300s
+  
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  comment: ${devicetype}
+    
+wifi:
+  ssid: !secret iot_ssid
+  password: !secret iotnetwork_password
+  ap:
+    ssid: $devicename
+    password: !secret ap_wifi
+captive_portal: 
+sensor:
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    device_class: signal_strength
+    update_interval: $wifi_refresh
 
+  - platform: uptime
+    name: "Uptime"
+    update_interval: $uptime_refresh
+
+      
+web_server:
+  port: 80
+  auth:
+    username: !secret web_server_username
+    password: !secret web_server_password
+
+api:   #Enable API
+  encryption: 
+    key: !secret hass_encryption_key
+  password: !secret api_password
+ota:   #Enable OTA updates
+  password: !secret ota_password
 
 packages:
-  wifi: !include .base-wifi.yaml
-  web_server: !include .base-web_server.yaml
-  hass_ota_base: !include .base-hass-ota.yaml
-  update_sensors: !include .base-uptime-sensors.yaml
-  base_device: !include .device-kauf-rgbww-bulbs.yaml
+  
   Kauf.RGBWW: github://KaufHA/kauf-rgbww-bulbs/kauf-bulb.yaml
