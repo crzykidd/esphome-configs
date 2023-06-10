@@ -7,6 +7,15 @@ external_components:
     components:
       - emporia_vue
 
+      
+  - source: github://pr#3500
+    components:
+      # list all components modified by this Pull Request here
+      - web_server
+      - web_server_idf
+      - web_server_base
+      - captive_portal
+
 esp32:
   board: esp32dev
   framework:
