@@ -1,5 +1,5 @@
 substitutions:
-  name: "panel-power-meter-1"
+  devicename: "panel-power-meter-1"
   friendly_name: Power Meter 1 
   timezone: America/Los_Angeles
   devicetype: Emporia Vue 2
@@ -52,7 +52,7 @@ packages:
 #  base_device: !include .device-sonoff_s31.yaml
 
 esphome:
-  name: ${name}
+  name: ${devicename}
   friendly_name: ${friendly_name}
   comment: ${devicetype}
 
