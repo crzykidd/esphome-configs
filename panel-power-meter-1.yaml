@@ -8,10 +8,10 @@ substitutions:
 
 # Name all ciruits and set phases
 
-  name_circuit_1: NONE1
+  name_circuit_1: "Hot Tub A"
   phase_circuit_1: phase_a
-  name_circuit_2: NONE2
-  phase_circuit_2: phase_a
+  name_circuit_2: "Hot Tub B"
+  phase_circuit_2: phase_b
   name_circuit_3: NONE3
   phase_circuit_3: phase_a
   name_circuit_4: NONE4
@@ -258,19 +258,19 @@ sensor:
     name: "Balance Daily Energy"
     power_id: balance_power
     accuracy_decimals: 0
-  - { power_id:  cir1, platform: total_daily_energy, accuracy_decimals: 0, name:  "Circuit 1 Daily Energy" }
-  - { power_id:  cir2, platform: total_daily_energy, accuracy_decimals: 0, name:  "Circuit 2 Daily Energy" }
-  - { power_id:  cir3, platform: total_daily_energy, accuracy_decimals: 0, name:  "Circuit 3 Daily Energy" }
-  - { power_id:  cir4, platform: total_daily_energy, accuracy_decimals: 0, name:  "Circuit 4 Daily Energy" }
-  - { power_id:  cir5, platform: total_daily_energy, accuracy_decimals: 0, name:  "Circuit 5 Daily Energy" }
-  - { power_id:  cir6, platform: total_daily_energy, accuracy_decimals: 0, name:  "Circuit 6 Daily Energy" }
-  - { power_id:  cir7, platform: total_daily_energy, accuracy_decimals: 0, name:  "Circuit 7 Daily Energy" }
-  - { power_id:  cir8, platform: total_daily_energy, accuracy_decimals: 0, name:  "Circuit 8 Daily Energy" }
-  - { power_id:  cir9, platform: total_daily_energy, accuracy_decimals: 0, name:  "Circuit 9 Daily Energy" }
-  - { power_id: cir10, platform: total_daily_energy, accuracy_decimals: 0, name: "Circuit 10 Daily Energy" }
-  - { power_id: cir11, platform: total_daily_energy, accuracy_decimals: 0, name: "Circuit 11 Daily Energy" }
-  - { power_id: cir12, platform: total_daily_energy, accuracy_decimals: 0, name: "Circuit 12 Daily Energy" }
-  - { power_id: cir13, platform: total_daily_energy, accuracy_decimals: 0, name: "Circuit 13 Daily Energy" }
-  - { power_id: cir14, platform: total_daily_energy, accuracy_decimals: 0, name: "Circuit 14 Daily Energy" }
-  - { power_id: cir15, platform: total_daily_energy, accuracy_decimals: 0, name: "Circuit 15 Daily Energy" }
-  - { power_id: cir16, platform: total_daily_energy, accuracy_decimals: 0, name: "Circuit 16 Daily Energy" }
+  - { power_id:  cir1, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_1 Daily Energy" }
+  - { power_id:  cir2, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_2 Daily Energy" }
+  - { power_id:  cir3, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_3 Daily Energy" }
+  - { power_id:  cir4, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_4 Daily Energy" }
+  - { power_id:  cir5, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_5 Daily Energy" }
+  - { power_id:  cir6, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_6 Daily Energy" }
+  - { power_id:  cir7, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_7 Daily Energy" }
+  - { power_id:  cir8, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_8 Daily Energy" }
+  - { power_id:  cir9, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_9 Daily Energy" }
+  - { power_id: cir10, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_10 Daily Energy" }
+  - { power_id: cir11, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_11 Daily Energy" }
+  - { power_id: cir12, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_12 Daily Energy" }
+  - { power_id: cir13, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_13 Daily Energy" }
+  - { power_id: cir14, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_14 Daily Energy" }
+  - { power_id: cir15, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_15 Daily Energy" }
+  - { power_id: cir16, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_16 Daily Energy" }
