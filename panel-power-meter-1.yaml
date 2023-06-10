@@ -160,28 +160,9 @@ time:
 sensor:
 
   - platform: uptime
-    #id: uptime_sensor     #gets uptime in human readable format
-    name: $friendly_name uptime in seconds
-    update_interval: $uptime_refresh
- #   on_raw_value:  # lambda code converts seconds to friendly format
- #     then:
- #       - text_sensor.template.publish:
- #           id: uptime_human
- #           state: !lambda |-
- #             int seconds = round(id(uptime_sensor).raw_state);
- #             int days = seconds / (24 * 3600);
- #             seconds = seconds % (24 * 3600);
- #             int hours = seconds / 3600;
- #             seconds = seconds % 3600;
- #             int minutes = seconds /  60;
- #             seconds = seconds % 60;
- #             return (
- #               (days ? to_string(days) + "d " : "") +
- #               (hours ? to_string(hours) + "h " : "") +
- #               (minutes ? to_string(minutes) + "m " : "") +
- #               (to_string(seconds) + "s")
- #             ).c_str();
-
+    name: test uptime in seconds
+    
+ 
   - platform: emporia_vue
     i2c_id: i2c_a
     phases:
