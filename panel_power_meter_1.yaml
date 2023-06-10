@@ -198,7 +198,7 @@ sensor:
           device_class: power
           filters: [*moving_avg, *pos]
       # Pay close attention to set the phase_id for each breaker by matching it to the phase/leg it connects to in the panel
-      - { phase_id: phase_a, input:  "1", power: { name:  "Circuit 1 Power", id:  cir1, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: ${phase_circuit_1}, input:  "1", power: { name:  "${name_circuit_1} Power", id:  cir1, filters: [ *moving_avg, *pos ] } }
       - { phase_id: phase_b, input:  "2", power: { name:  "Circuit 2 Power", id:  cir2, filters: [ *moving_avg, *pos ] } }
       - { phase_id: phase_a, input:  "3", power: { name:  "Circuit 3 Power", id:  cir3, filters: [ *moving_avg, *pos ] } }
       - { phase_id: phase_a, input:  "4", power: { name:  "Circuit 4 Power", id:  cir4, filters: [ *moving_avg, *pos ] } }
