@@ -1,5 +1,5 @@
 substitutions:
-  name: "panel_power_meter_1"
+  name: "panel-power-meter-1"
   friendly_name: Power Meter 1 
   timezone: America/Los_Angeles
   devicetype: Emporia Vue 2
