@@ -1,6 +1,51 @@
+substitutions:
+  name: "Panel_Power_Meter_1"
+  friendly_name: Power Meter 1 
+  timezone: America/Los_Angeles
+  devicetype: Emporia Vue 2
+  uptime_refresh: 60s
+  wifi_refresh: 120s
+
+# Name all ciruits and set phases
+
+  name_circuit_1: NONE1
+  phase_circuit_1: phase_a
+  name_circuit_2: NONE2
+  phase_circuit_2: phase_a
+  name_circuit_3: NONE3
+  phase_circuit_3: phase_a
+  name_circuit_4: NONE4
+  phase_circuit_4: phase_a
+  name_circuit_5: NONE5
+  phase_circuit_5: phase_a
+  name_circuit_6: NONE6
+  phase_circuit_6: phase_a
+  name_circuit_7: NONE7
+  phase_circuit_7: phase_a
+  name_circuit_8: NONE8
+  phase_circuit_8: phase_a
+  name_circuit_9: NONE9
+  phase_circuit_9: phase_a
+  name_circuit_10: NONE10
+  phase_circuit_10: phase_a
+  name_circuit_11: NONE11
+  phase_circuit_11: phase_a
+  name_circuit_12: NONE12
+  phase_circuit_12: phase_a
+  name_circuit_13: NONE13
+  phase_circuit_13: phase_a
+  name_circuit_14: NONE14
+  phase_circuit_14: phase_a
+  name_circuit_15: NONE15
+  phase_circuit_15: phase_a
+  name_circuit_16: NONE
+  phase_circuit_16: phase_a
+
 esphome:
-  name: emporiavue2
-  friendly_name: vue2
+  name: ${name}
+  friendly_name: ${friendly_name}
+  comment: ${devicetype}
+
 
 external_components:
   - source: github://emporia-vue-local/esphome@dev
@@ -53,7 +98,7 @@ web_server:
   auth:
     username: !secret web_server_username
     password: !secret web_server_password
-    
+
 preferences:
   # the default of 1min is far too short--flash chip is rated
   # for approx 100k writes.
