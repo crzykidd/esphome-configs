@@ -129,9 +129,14 @@ i2c:
   frequency: 200kHz  # recommended range is 50-200kHz
   id: i2c_a
 
+
 time:
   - platform: sntp
     id: my_time
+    timezone: $timezone
+    on_time_sync:
+      then:
+        - logger.log: "Synchronized system clock"
 
 # these are called references in YAML. They allow you to reuse
 # this configuration in each sensor, while only defining it once
