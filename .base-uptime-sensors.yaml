@@ -38,7 +38,7 @@ text_sensor:
     update_interval: $uptime_refresh    
     entity_category: diagnostic
     icon: mdi:clock-outline
-#time:
-#  - platform: homeassistant   #uses Home Assistant as time source
-#    id: homeassistant_time
-#    timezone: $timezone
+time:
+  - platform: homeassistant   #uses Home Assistant as time source
+    id: homeassistant_time
+    timezone: $timezone
