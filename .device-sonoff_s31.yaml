@@ -6,6 +6,7 @@ esphome:
   platform: ESP8266
   board: esp01_1m
   comment: $devicetype
+  friendly_name: $friendly_name
   
 
 logger:
