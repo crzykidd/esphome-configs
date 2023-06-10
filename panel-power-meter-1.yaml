@@ -160,7 +160,7 @@ time:
 sensor:
 
   - platform: uptime
-    id: uptime_sensor     #gets uptime in human readable format
+    #id: uptime_sensor     #gets uptime in human readable format
     name: $friendly_name uptime in seconds
     update_interval: $uptime_refresh
  #   on_raw_value:  # lambda code converts seconds to friendly format
