@@ -4,6 +4,6 @@ api:   #Enable API
   password: !secret api_password
 ota:   #Enable OTA updates
   password: !secret ota_password
-switch: 
-  - platform: restart    #Adds a reboot switch in Home Assistant to power cycle the device
-    name: $friendly_name Reboot  
+#switch: 
+#  - platform: restart    #Adds a reboot switch in Home Assistant to power cycle the device
+#    name: $friendly_name Reboot  
