@@ -12,33 +12,33 @@ substitutions:
   phase_circuit_1: phase_a
   name_circuit_2: "Hot Tub B"
   phase_circuit_2: phase_b
-  name_circuit_3: NONE3
+  name_circuit_3: ZZNotUsed3
   phase_circuit_3: phase_a
-  name_circuit_4: NONE4
+  name_circuit_4: ZZNotUsed4
   phase_circuit_4: phase_a
-  name_circuit_5: NONE5
+  name_circuit_5: ZZNotUsed5
   phase_circuit_5: phase_a
-  name_circuit_6: NONE6
+  name_circuit_6: ZZNotUsed6
   phase_circuit_6: phase_a
-  name_circuit_7: NONE7
+  name_circuit_7: ZZNotUsed7
   phase_circuit_7: phase_a
-  name_circuit_8: NONE8
+  name_circuit_8: ZZNotUsed8
   phase_circuit_8: phase_a
-  name_circuit_9: NONE9
+  name_circuit_9: ZZNotUsed9
   phase_circuit_9: phase_a
-  name_circuit_10: NONE10
+  name_circuit_10: ZZNotUsed10
   phase_circuit_10: phase_a
-  name_circuit_11: NONE11
+  name_circuit_11: ZZNotUsed11
   phase_circuit_11: phase_a
-  name_circuit_12: NONE12
+  name_circuit_12: ZZNotUsed12
   phase_circuit_12: phase_a
-  name_circuit_13: NONE13
+  name_circuit_13: ZZNotUsed13
   phase_circuit_13: phase_a
-  name_circuit_14: NONE14
+  name_circuit_14: ZZNotUsed14
   phase_circuit_14: phase_a
-  name_circuit_15: NONE15
+  name_circuit_15: ZZNotUsed15
   phase_circuit_15: phase_a
-  name_circuit_16: NONE
+  name_circuit_16: ZZNotUsed
   phase_circuit_16: phase_a
 
 esphome:
