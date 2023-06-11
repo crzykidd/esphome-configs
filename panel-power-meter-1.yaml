@@ -236,6 +236,7 @@ sensor:
 # Heat Pump combined Power 
   - platform: template
     name: "Heat Pump Total Power"
+    lambda: return id(cir5).state + id(cir6).state + id(cir13).state;
     update_interval: 2.88s
     id: heat_pump_total_power
     unit_of_measurement: "W"  
