@@ -19,14 +19,14 @@ substitutions:
   phase_circuit_3: phase_a
   name_circuit_4: Tesla 1 B
   phase_circuit_4: phase_b
-  name_circuit_5: ZZNotUsed5
+  name_circuit_5: Heat Pump A
   phase_circuit_5: phase_a
-  name_circuit_6: ZZNotUsed6
-  phase_circuit_6: phase_a
-  name_circuit_7: ZZNotUsed7
+  name_circuit_6: Heat Pump B
+  phase_circuit_6: phase_b
+  name_circuit_7: Shed A
   phase_circuit_7: phase_a
-  name_circuit_8: ZZNotUsed8
-  phase_circuit_8: phase_a
+  name_circuit_8: Shed B
+  phase_circuit_8: phase_b
   name_circuit_9: ZZNotUsed9
   phase_circuit_9: phase_a
   name_circuit_10: ZZNotUsed10
@@ -207,6 +207,7 @@ sensor:
     power_id: total_power
     accuracy_decimals: 0
   
+# HOT TUB Combined Power 
   - platform: template
     name: "Hot Tub Total Power"
     lambda: return id(cir1).state + id(cir2).state;
@@ -219,6 +220,7 @@ sensor:
     power_id: hot_tub_total_power
     accuracy_decimals: 0
 
+# Tesla 1 combined Power 
   - platform: template
     name: "Tesla 1 Total Power"
     lambda: return id(cir3).state + id(cir4).state;
@@ -231,6 +233,31 @@ sensor:
     power_id: tesla_1_total_power
     accuracy_decimals: 0
 
+# Heat Pump combined Power 
+  - platform: template
+    name: "Heat Pump Total Power"
+    lambda: return id(cir5).state + id(cir6).state;
+    update_interval: 2.88s
+    id: heat_pump_total_power
+    unit_of_measurement: "W"  
+
+  - platform: total_daily_energy
+    name: "Heat Pump Total Daily Energy"
+    power_id: heat_pump_total_power
+    accuracy_decimals: 0
+
+# Shed combined Power 
+  - platform: template
+    name: "Shed Total Power"
+    lambda: return id(cir7).state + id(cir8).state;
+    update_interval: 2.88s
+    id: shed_total_power
+    unit_of_measurement: "W"  
+
+  - platform: total_daily_energy
+    name: "Shed Total Daily Energy"
+    power_id: shed_total_power
+    accuracy_decimals: 0
 
   - platform: template
     name: "Balance Power"
