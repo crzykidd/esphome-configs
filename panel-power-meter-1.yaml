@@ -35,14 +35,14 @@ substitutions:
   phase_circuit_11: phase_b
   name_circuit_12: Garage Freezer
   phase_circuit_12: phase_a
-  name_circuit_13: ZZNotUsed13
+  name_circuit_13: Furnace Fan
   phase_circuit_13: phase_a
-  name_circuit_14: ZZNotUsed14
+  name_circuit_14: Master Bath
   phase_circuit_14: phase_a
-  name_circuit_15: ZZNotUsed15
+  name_circuit_15: Tesla 2 A
   phase_circuit_15: phase_a
-  name_circuit_16: ZZNotUsed
-  phase_circuit_16: phase_a
+  name_circuit_16: Tesla 2 B
+  phase_circuit_16: phase_b
 
 packages:
   wifi: !include .base-staticip-wifi.yaml
@@ -236,7 +236,6 @@ sensor:
 # Heat Pump combined Power 
   - platform: template
     name: "Heat Pump Total Power"
-    lambda: return id(cir5).state + id(cir6).state;
     update_interval: 2.88s
     id: heat_pump_total_power
     unit_of_measurement: "W"  
@@ -257,6 +256,19 @@ sensor:
   - platform: total_daily_energy
     name: "Shed Total Daily Energy"
     power_id: shed_total_power
+    accuracy_decimals: 0
+
+# Tesla 2 combined Power 
+  - platform: template
+    name: "Tesla 2 Total Power"
+    lambda: return id(cir15).state + id(cir16).state;
+    update_interval: 2.88s
+    id: tesla_2_total_power
+    unit_of_measurement: "W"  
+
+  - platform: total_daily_energy
+    name: "Tesla 2 Total Daily Energy"
+    power_id: tesla_2_total_power
     accuracy_decimals: 0
 
   - platform: template
