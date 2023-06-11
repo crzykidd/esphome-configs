@@ -59,7 +59,7 @@ esphome:
 api:   #Enable API
   encryption: 
     key: !secret hass_encryption_key
-  password: !secret api_password
+  
 ota:   #Enable OTA updates
   password: !secret ota_password
 
