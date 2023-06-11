@@ -27,10 +27,10 @@ substitutions:
   phase_circuit_7: phase_a
   name_circuit_8: Shed B
   phase_circuit_8: phase_b
-  name_circuit_9: ZZNotUsed9
-  phase_circuit_9: phase_a
-  name_circuit_10: ZZNotUsed10
-  phase_circuit_10: phase_a
+  name_circuit_9: Kitchen Fridge
+  phase_circuit_9: phase_b
+  name_circuit_10: Office
+  phase_circuit_10: phase_b
   name_circuit_11: ZZNotUsed11
   phase_circuit_11: phase_a
   name_circuit_12: ZZNotUsed12
