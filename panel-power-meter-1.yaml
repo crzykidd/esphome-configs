@@ -23,9 +23,9 @@ substitutions:
   phase_circuit_5: phase_a
   name_circuit_6: Heat Pump B
   phase_circuit_6: phase_b
-  name_circuit_7: Shed A
+  name_circuit_7: Shop A
   phase_circuit_7: phase_a
-  name_circuit_8: Shed B
+  name_circuit_8: Shop B
   phase_circuit_8: phase_b
   name_circuit_9: Kitchen Fridge
   phase_circuit_9: phase_b
@@ -245,17 +245,17 @@ sensor:
     power_id: heat_pump_total_power
     accuracy_decimals: 0
 
-# Shed combined Power 
+# Shop combined Power 
   - platform: template
-    name: "Shed Total Power"
+    name: "Shop Total Power"
     lambda: return id(cir7).state + id(cir8).state;
     update_interval: 2.88s
-    id: shed_total_power
+    id: shop_total_power
     unit_of_measurement: "W"  
 
   - platform: total_daily_energy
-    name: "Shed Total Daily Energy"
-    power_id: shed_total_power
+    name: "Shop Total Daily Energy"
+    power_id: shop_total_power
     accuracy_decimals: 0
 
 # Tesla 2 combined Power 
