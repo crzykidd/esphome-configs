@@ -15,10 +15,10 @@ substitutions:
   phase_circuit_1: phase_a
   name_circuit_2: "Hot Tub B"
   phase_circuit_2: phase_b
-  name_circuit_3: ZZNotUsed3
+  name_circuit_3: Tesla 1 A
   phase_circuit_3: phase_a
-  name_circuit_4: ZZNotUsed4
-  phase_circuit_4: phase_a
+  name_circuit_4: Tesla 1 B
+  phase_circuit_4: phase_b
   name_circuit_5: ZZNotUsed5
   phase_circuit_5: phase_a
   name_circuit_6: ZZNotUsed6
