@@ -158,11 +158,6 @@ time:
     lambda: 'return abs(x);'
 
 sensor:
-
-  - platform: uptime
-    name: test uptime in seconds
-    
- 
   - platform: emporia_vue
     i2c_id: i2c_a
     phases:
@@ -272,19 +267,3 @@ sensor:
   - { power_id: cir15, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_15 Daily Energy" }
   - { power_id: cir16, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_16 Daily Energy" }
 
-#text_sensor:
-#  - platform: template
-#    name: $friendly_name Friendly Uptime  #Human Readable format
-#    id: uptime_human
-#    entity_category: diagnostic
-#    icon: mdi:clock-start
-#  - platform: template
-#    name: "$friendly_name Current Time"   #show current time of device
-#    lambda: |-
-#      char str[18];
-#      time_t currTime = id(my_time).now().timestamp;
-#      strftime(str, sizeof(str), "%y-%m-%d %H:%M:%S", localtime(&currTime));
-#      return  { str };
-#    update_interval: $uptime_refresh    
-#    entity_category: diagnostic
-#    icon: mdi:clock-outline
