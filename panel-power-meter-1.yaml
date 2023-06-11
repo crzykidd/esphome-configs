@@ -90,7 +90,7 @@ logger:
 preferences:
   # the default of 1min is far too short--flash chip is rated
   # for approx 100k writes.
-  flash_write_interval: "48h"
+  flash_write_interval: "2h"
 
 output:
   - platform: ledc
