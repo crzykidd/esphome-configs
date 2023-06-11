@@ -213,7 +213,12 @@ sensor:
     update_interval: 2.88s
     id: hot_tub_total_power
     unit_of_measurement: "W"  
-    
+
+ - platform: hot_tub_total_daily_energy
+    name: "Hot Tub Total Daily Energy"
+    power_id: hot_tub_total_power
+    accuracy_decimals: 0
+
   - platform: template
     name: "Balance Power"
     lambda: !lambda |-
