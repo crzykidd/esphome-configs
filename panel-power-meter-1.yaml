@@ -206,6 +206,13 @@ sensor:
     name: "Total Daily Energy"
     power_id: total_power
     accuracy_decimals: 0
+    - platform: template
+    name: "Hot Tub Total Power"
+    lambda: return id(cir1).state + id(cir2).state;
+    update_interval: 2.88s
+    id: hot_tub_total_power
+    unit_of_measurement: "W"
+  
   - platform: template
     name: "Balance Power"
     lambda: !lambda |-
