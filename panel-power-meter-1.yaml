@@ -220,6 +220,19 @@ sensor:
     accuracy_decimals: 0
 
   - platform: template
+    name: "Tesla 1 Total Power"
+    lambda: return id(cir3).state + id(cir4).state;
+    update_interval: 2.88s
+    id: tesla_1_total_power
+    unit_of_measurement: "W"  
+
+  - platform: total_daily_energy
+    name: "Tesla 1 Total Daily Energy"
+    power_id: tesla_1_total_power
+    accuracy_decimals: 0
+
+
+  - platform: template
     name: "Balance Power"
     lambda: !lambda |-
       return max(0.0f, id(total_power).state -
