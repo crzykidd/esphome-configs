@@ -184,14 +184,15 @@ sensor:
       - { phase_id: $phase_circuit_2, input:  "2", power: { name:  "$name_circuit_2 Power", id:  cir2, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_3, input:  "3", power: { name:  "$name_circuit_3 Power", id:  cir3, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_4, input:  "4", power: { name:  "$name_circuit_4 Power", id:  cir4, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_5, input:  "5", power: { name:  "$name_circuit_5 Power", id:  cir5, filters: [ *moving_avg, *pos, multiply: 2 ] } }
-      - { phase_id: $phase_circuit_6, input:  "6", power: { name:  "$name_circuit_6 Power", id:  cir6, filters: [ *moving_avg, *pos, multiply: 2 ] } }
-      - { phase_id: $phase_circuit_7, input:  "7", power: { name:  "$name_circuit_7 Power", id:  cir7, filters: [ *moving_avg, *pos, multiply: 2 ] } }
+      #- { phase_id: $phase_circuit_5, input:  "5", power: { name:  "$name_circuit_5 Power", id:  cir5, filters: [ *moving_avg, *pos, multiply: 2 ] } }
+      - { phase_id: $phase_circuit_5, input:  "5", power: { name:  "$name_circuit_5 Power", id:  cir5, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_6, input:  "6", power: { name:  "$name_circuit_6 Power", id:  cir6, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_7, input:  "7", power: { name:  "$name_circuit_7 Power", id:  cir7, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_8, input:  "8", power: { name:  "$name_circuit_8 Power", id:  cir8, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_9, input:  "9", power: { name:  "$name_circuit_9 Power", id:  cir9, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_10, input: "10", power: { name: "$name_circuit_10 Power", id: cir10, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_11, input: "11", power: { name: "$name_circuit_11 Power", id: cir11, filters: [ *moving_avg, *pos, multiply: 2 ] } }
-      - { phase_id: $phase_circuit_12, input: "12", power: { name: "$name_circuit_12 Power", id: cir12, filters: [ *moving_avg, *pos, multiply: 2 ] } }
+      - { phase_id: $phase_circuit_11, input: "11", power: { name: "$name_circuit_11 Power", id: cir11, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_12, input: "12", power: { name: "$name_circuit_12 Power", id: cir12, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_13, input: "13", power: { name: "$name_circuit_13 Power", id: cir13, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_14, input: "14", power: { name: "$name_circuit_14 Power", id: cir14, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_15, input: "15", power: { name: "$name_circuit_15 Power", id: cir15, filters: [ *moving_avg, *pos ] } }
