@@ -6,6 +6,8 @@ esphome:
 substitutions:
   devicename: attic_node_garage
   upper_devicename: "Attic Node Garage"
+  friendly_name: Attic Node Garage
+  wifi_refresh: 300sec
 
 
 
@@ -74,9 +76,7 @@ sensor:
     update_interval: 30s
     
     
-  - platform: wifi_signal
-    name: "$upper_devicename WiFi Signal"
-    update_interval: 60sec     
+
   
 switch:
   - platform: restart
