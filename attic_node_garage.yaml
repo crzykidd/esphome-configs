@@ -8,8 +8,9 @@ substitutions:
   upper_devicename: "Attic Node Garage"
   friendly_name: Attic Node Garage
   wifi_refresh: 300sec
-
-
+  uptime_refresh: 60sec
+  timezone: America/Los_Angeles
+  devicetype: ESP8266 d1_mini_pro
 
 packages:
   wifi: !include .base-wifi.yaml
