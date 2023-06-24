@@ -19,7 +19,7 @@ wifi:
   password: !secret iotnetwork_password
   domain: !secret domain
   fast_connect: true
-  use_address: 192.168.100.106
+  use_address: 192.168.50.116
 mqtt:
   broker: !secret mqtt_broker
   username: !secret mqtt_username
