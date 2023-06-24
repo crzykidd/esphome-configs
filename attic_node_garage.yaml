@@ -25,18 +25,9 @@ wifi:
   fast_connect: false
   use_address: 192.168.50.116
 
-
 # Enable logging
 logger:
 
-# Enable Home Assistant API
-
-ota:
-  password: !secret ota_password
-  
-
-
- 
 #i2c:
 #  sda: 4
 #  scl: 5
@@ -52,8 +43,4 @@ sensor:
     update_interval: 60sec
   
 
-  
-switch:
-  - platform: restart
-    name: "$upper_devicename restart"
 
