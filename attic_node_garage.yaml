@@ -8,7 +8,8 @@ substitutions:
   devicename: attic_node_garage
   upper_devicename: "Attic Node Garage"
 
-
+packages:
+  web_server: !include .base-web_server.yaml
 # Common config for ESP8266 running on Wemos D1 Mini
 # 
 
