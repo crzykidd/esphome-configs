@@ -25,28 +25,6 @@ wifi:
   fast_connect: false
   use_address: 192.168.50.116
 
-mqtt:
-  broker: !secret mqtt_broker
-  username: !secret mqtt_username
-  password: !secret mqtt_password
-  topic_prefix: ESPHome/$devicename
-  birth_message:
-    topic: $upper_devicename/topic
-    payload: 
-  will_message:
-    topic: $upper_devicename/topic
-    payload: 
-  on_message:
-    - topic: ESPHome/ota_mode/$devicename
-      payload: 'ON'
-      then:
-        - deep_sleep.prevent: deep_sleep_1
-    - topic: ESPHome/ota_mode_off/$devicename
-      payload: 'OFF'
-      then:
-        - logger.log: OTA Mode set to OFF from MQTT
-        - deep_sleep.enter: deep_sleep_1  
-    
 
 # Enable logging
 logger:
@@ -72,19 +50,10 @@ sensor:
     humidity:
       name: "$upper_devicename Humidity"
     update_interval: 60sec
-
-  - platform: uptime
-    name: "$upper_devicename runtime"
-    update_interval: 30s
-    
-    
+  
 
   
 switch:
   - platform: restart
     name: "$upper_devicename restart"
 
-deep_sleep:
-  id: deep_sleep_1 
-  run_duration: 9sec
-  sleep_duration: 300sec 
