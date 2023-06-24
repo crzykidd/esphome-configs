@@ -47,7 +47,7 @@ substitutions:
 packages:
   wifi: !include .base-staticip-wifi.yaml
   web_server: !include .base-web_server.yaml
-
+  update_sensors: !include .base-uptime-sensors.yaml
 #  update_sensors: !include .base-uptime-sensors.yaml
 #  base_device: !include .device-sonoff_s31.yaml
 
