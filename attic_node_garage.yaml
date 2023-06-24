@@ -3,23 +3,24 @@ esphome:
   platform: ESP8266
   board: d1_mini_pro
 
-
 substitutions:
   devicename: attic_node_garage
   upper_devicename: "Attic Node Garage"
 
-web_server:    #sets up Web Server
-  port: 80
-  auth:
-    username: !secret web_server_username
-    password: !secret web_server_password
+
+
+packages:
+  wifi: !include .base-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  hass_ota_base: !include .base-hass-ota.yaml
 
 wifi:
   ssid: !secret iot_ssid
   password: !secret iotnetwork_password
   domain: !secret domain
-  fast_connect: true
+  fast_connect: false
   use_address: 192.168.50.116
+
 mqtt:
   broker: !secret mqtt_broker
   username: !secret mqtt_username
@@ -66,16 +67,16 @@ sensor:
       unit_of_measurement: "°C"
     humidity:
       name: "$upper_devicename Humidity"
-    update_interval: 3sec
+    update_interval: 60sec
 
   - platform: uptime
     name: "$upper_devicename runtime"
-    update_interval: 2s
+    update_interval: 30s
     
     
   - platform: wifi_signal
     name: "$upper_devicename WiFi Signal"
-    update_interval: 5sec     
+    update_interval: 60sec     
   
 switch:
   - platform: restart
