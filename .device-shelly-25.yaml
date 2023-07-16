@@ -103,6 +103,12 @@ binary_sensor:
     on_press:
       then:
         - switch.toggle: shelly_relay_2
+  
+  # added for known issue  https://savjee.be/blog/shelly25-esphome-potential-fire-hazard-fix/
+  - platform: gpio
+    pin: GPIO16
+    name: "ade7953 IRQ pin"
+    internal: true
 
 switch:
   - platform: gpio
@@ -117,3 +123,5 @@ switch:
     pin: GPIO15
     icon: "mdi:electric-switch"
     restore_mode: RESTORE_DEFAULT_OFF
+
+
