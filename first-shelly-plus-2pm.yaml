@@ -1,9 +1,15 @@
 substitutions:
   devicename: "shelly-plus-2pm"
+  friendly_name: "Shelly Plus 2pm"
   output_name_1: "Output 1"
   output_name_2: "Output 2"
   input_name_1: "Input 1"
   input_name_2: "Input 2"
+  timezone: America/Los_Angeles
+  devicetype: Shelly Plus 2pm
+  uptime_refresh: 60s
+  wifi_refresh: 60s
+
 
 # For PCB v0.1.9 with dual core ESP32
 esphome:
