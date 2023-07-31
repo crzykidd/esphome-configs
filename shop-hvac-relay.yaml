@@ -30,7 +30,7 @@ cover:
     name: "Damper"
     optimistic: true
     open_action: 
-      -switch.turn_off: relay_2
+      - switch.turn_off: relay_2
     close_action:
       - switch.turn_on: relay_2
     
