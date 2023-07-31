@@ -1,0 +1,22 @@
+substitutions:
+  devicename: "shed-hvac-relay"
+  devicename_1: "Fan"
+  devicename_2: "Damper"
+  friendly_name: "Shed HVAC Relay"
+  
+# Relay trip limits
+  max_power: "3600.0"
+  max_temp: "80.0"
+  timezone: America/Los_Angeles
+  devicetype: Shelly Plus 2pm
+  uptime_refresh: 60s
+  wifi_refresh: 60s
+
+
+  
+packages:
+  wifi: !include .base-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  hass_ota_base: !include .base-hass-ota.yaml
+  update_sensors: !include .base-uptime-sensors.yaml
+  base_device: !include .device-shelly-plus-2pm.yaml
