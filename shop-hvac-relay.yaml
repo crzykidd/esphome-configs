@@ -10,7 +10,6 @@ substitutions:
   max_power: "3600.0"
   max_temp: "80.0"
   timezone: America/Los_Angeles
-  devicetype: Shelly Plus 2pm
   uptime_refresh: 60s
   wifi_refresh: 60s
 
