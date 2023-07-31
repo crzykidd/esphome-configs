@@ -45,7 +45,7 @@ button:
     entity_category: 'diagnostic'
 
 binary_sensor:   
- reset button on device
+ # reset button on device
   - platform: gpio
     name: "${friendly_name} Button"
     pin:
