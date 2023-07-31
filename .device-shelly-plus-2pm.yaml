@@ -45,20 +45,20 @@ button:
     entity_category: 'diagnostic'
     
 # reset button on device
-  - platform: gpio
-    name: "${friendly_name} Button"
-    pin:
-      number: GPIO4
-      inverted: yes
-      mode:
-        input: true
-        pullup: true
-    on_press:
-      then:
-        - button.press: "restart_device"
-    filters:
-      - delayed_on_off: 5ms
-    internal: true
+#  - platform: gpio
+#    name: "${friendly_name} Button"
+#    pin:
+#      number: GPIO4
+#      inverted: yes
+#      mode:
+#        input: true
+#        pullup: true
+#    on_press:
+#      then:
+#        - button.press: "restart_device"
+#    filters:
+#      - delayed_on_off: 5ms
+#    internal: true
 
   #temperature sensor
   - platform: ntc
