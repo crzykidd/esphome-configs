@@ -41,6 +41,13 @@ switch:
     output: "relay_output_2"
     restore_mode: RESTORE_DEFAULT_OFF
 
+# Restart Button
+button:
+  - platform: restart
+    id: "restart_device"
+    name: "${devicename} Restart"
+    entity_category: 'diagnostic'
+
 binary_sensor:   
  # reset button on device
   - platform: gpio
