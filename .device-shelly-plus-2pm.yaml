@@ -45,7 +45,7 @@ switch:
 button:
   - platform: restart
     id: "restart_device"
-    name: "${device_name} Restart"
+    name: "${devicename} Restart"
     entity_category: 'diagnostic'
 
 binary_sensor:   
@@ -130,7 +130,7 @@ sensor:
                 data:
                   title: "Message from ${friendly_name}"
                 data_template:
-                  message: "${device_name_2} turned off because power exceeded ${max_power}W"
+                  message: "${devicename_2} turned off because power exceeded ${max_power}W"
     active_power_b:
       name: "${devicename_1} Power"
       id: power_channel_1
@@ -147,7 +147,7 @@ sensor:
                 data:
                   title: "Message from ${friendly_name}"
                 data_template:
-                  message: "${device_name_1} turned off because power exceeded ${max_power}W"
+                  message: "${devicename_1} turned off because power exceeded ${max_power}W"
     update_interval: 30s
 
   - platform: total_daily_energy
