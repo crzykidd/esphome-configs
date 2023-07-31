@@ -1,8 +1,8 @@
 substitutions:
-  devicename: "shed-hvac-relay"
+  devicename: "shop-hvac-relay"
   devicename_1: "Fan"
   devicename_2: "Damper"
-  friendly_name: "Shed HVAC Relay"
+  friendly_name: "Shop HVAC Relay"
   
 # Relay trip limits
   max_power: "3600.0"
