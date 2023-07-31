@@ -31,13 +31,13 @@ output:
 switch:
   - platform: output
     id: "relay_1"
-    name: "${device_name_1} Output"
+    name: "${devicename_1} Output"
     output: "relay_output_1"
     restore_mode: RESTORE_DEFAULT_OFF
 
   - platform: output
     id: "relay_2"
-    name: "${device_name_2} Output"
+    name: "${devicename_2} Output"
     output: "relay_output_2"
     restore_mode: RESTORE_DEFAULT_OFF
 
@@ -45,7 +45,7 @@ switch:
 button:
   - platform: restart
     id: "restart_device"
-    name: "${device_name_1} Restart"
+    name: "${device_name} Restart"
     entity_category: 'diagnostic'
 
 binary_sensor:   
@@ -89,7 +89,7 @@ sensor:
                 data:
                   title: "Message from ${friendly_name}"
                 data_template:
-                  message: "${device_name_1} and ${device_name_2} turned off because temperature exceeded ${max_temp}°C"
+                  message: "${devicename_1} and ${devicename_2} turned off because temperature exceeded ${max_temp}°C"
 
   - platform: resistance
     id: temp_resistance_reading
@@ -109,15 +109,15 @@ sensor:
     voltage:
       name: "${friendly_name} Voltage"
       entity_category: 'diagnostic'
-    # On the Shelly 2.5 channels are mixed ch1=B ch2=A
+    # On the Shelly 2pm channels are mixed ch1=B ch2=A
     current_a:
-      name: "${device_name_2} Current"
+      name: "${devicename_2} Current"
       entity_category: 'diagnostic'
     current_b:
-      name: "${device_name_1} Current"
+      name: "${devicename_1} Current"
       entity_category: 'diagnostic'
     active_power_a:
-      name: "${device_name_2} Power"
+      name: "${devicename_2} Power"
       id: power_channel_2
       entity_category: 'diagnostic'
       # active_power_a is normal, so don't multiply by -1
@@ -132,7 +132,7 @@ sensor:
                 data_template:
                   message: "${device_name_2} turned off because power exceeded ${max_power}W"
     active_power_b:
-      name: "${device_name_1} Power"
+      name: "${devicename_1} Power"
       id: power_channel_1
       entity_category: 'diagnostic'
       # active_power_b is inverted, so multiply by -1
@@ -151,10 +151,10 @@ sensor:
     update_interval: 30s
 
   - platform: total_daily_energy
-    name: "${device_name_1} Daily Energy"
+    name: "${devicename_1} Daily Energy"
     power_id: power_channel_1
   - platform: total_daily_energy
-    name: "${device_name_2} Daily Energy"
+    name: "${devicename_2} Daily Energy"
     power_id: power_channel_2
 
 status_led:

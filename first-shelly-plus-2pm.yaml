@@ -1,16 +1,15 @@
 substitutions:
-  devicename: "shelly-plus-2pm"
-  device_name_1: "Shelly Plus 2PM Switch 1"
-  device_name_2: "Shelly Plus 2PM Switch 2"
+  devicename: "first-shelly-plus-2pm"
+  devicename_1: "First Device"
+  devicename_2: "Second Device"
+  #devicename_switch1: "First Shelly Plus 2PM Switch 1"
+  #devicename_switch2: "First Shelly Plus 2PM Switch 2"
   friendly_name: "Shelly Plus 2pm"
-  output_name_1: "Output 1"
-  output_name_2: "Output 2"
-  input_name_1: "Input 1"
-  input_name_2: "Input 2"
-  # Home Assistant light bulb to toggle
-  bulb_name_1: "light.smart_bulb_1"
-  bulb_name_2: "light.smart_bulb_2"
-  # Relay trip limits
+  #devicename_output1: "Output 1"
+  #devicename_output2: "Output 2"
+  #devicesname_input1: "Input 1"
+  #devicesname_input1: "Input 2"
+# Relay trip limits
   max_power: "3600.0"
   max_temp: "80.0"
   timezone: America/Los_Angeles
