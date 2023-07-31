@@ -26,7 +26,7 @@ packages:
 #moving outputs here to tweak for this config
 
 cover:
-  - platform: single_button
+  - platform: template
     control_output: relay_2
     control_delay: 1500ms # for when need to stop and change direction
     closed_endstop: closed_endstop 
