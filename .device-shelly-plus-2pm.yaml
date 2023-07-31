@@ -8,7 +8,9 @@ esp32:
     type: arduino
 
 logger:
-
+  logs:
+    component: ERROR
+    
 time:
   - platform: homeassistant
 
