@@ -27,9 +27,10 @@ packages:
 
 cover:
   - platform: template
-    control_output: relay_2
-    control_delay: 1500ms # for when need to stop and change direction
-    closed_endstop: closed_endstop 
-    close_timeout: 5s
-    #open_endstop: ... # optional
-    open_timeout: 5s
+    name: "Damper"
+    optimistic: true
+    open_action: 
+      -switch.turn_off: relay_2
+    close_action:
+      - switch.turn_on: relay_2
+    
