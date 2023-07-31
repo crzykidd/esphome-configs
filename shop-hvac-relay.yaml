@@ -28,6 +28,7 @@ packages:
 cover:
   - platform: template
     name: "Damper"
+    device_class: damper
     optimistic: true
     open_action: 
       - switch.turn_off: relay_2
