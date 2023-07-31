@@ -7,3 +7,4 @@ ota:   #Enable OTA updates
 switch: 
   - platform: restart    #Adds a reboot switch in Home Assistant to power cycle the device
     name: $friendly_name Reboot  
+    entity_category: 'diagnostic'
