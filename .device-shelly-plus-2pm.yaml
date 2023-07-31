@@ -1,0 +1,157 @@
+# For PCB v0.1.9 with dual core ESP32
+esphome:
+  name: "${devicename}"
+
+esp32:
+  board: esp32doit-devkit-v1
+  framework:
+    type: arduino
+
+time:
+  - platform: homeassistant
+
+i2c:
+  sda: GPIO26
+  scl: GPIO25
+
+output:
+  - platform: gpio
+    id: "relay_output_1"
+    pin: GPIO13
+
+  - platform: gpio
+    id: "relay_output_2"
+    pin: GPIO12
+
+#Shelly Switch Output
+switch:
+  - platform: output
+    id: "relay_1"
+    name: "${device_name_1} Output"
+    output: "relay_output_1"
+    restore_mode: RESTORE_DEFAULT_OFF
+
+  - platform: output
+    id: "relay_2"
+    name: "${device_name_2} Output"
+    output: "relay_output_2"
+    restore_mode: RESTORE_DEFAULT_OFF
+
+# Restart Button
+button:
+  - platform: restart
+    id: "restart_device"
+    name: "${device_name_1} Restart"
+    entity_category: 'diagnostic'
+    
+# reset button on device
+  - platform: gpio
+    name: "${upper_devicename} Button"
+    pin:
+      number: GPIO4
+      inverted: yes
+      mode:
+        input: true
+        pullup: true
+    on_press:
+      then:
+        - button.press: "restart_device"
+    filters:
+      - delayed_on_off: 5ms
+    internal: true
+
+  #temperature sensor
+  - platform: ntc
+    sensor: temp_resistance_reading
+    name: "${upper_devicename} Temperature"
+    unit_of_measurement: "°C"
+    accuracy_decimals: 1
+    icon: "mdi:thermometer"
+    entity_category: 'diagnostic'
+    calibration:
+      #These default values don't seem accurate
+      b_constant: 3350
+      reference_resistance: 10kOhm
+      reference_temperature: 298.15K
+    on_value_range:
+      - above: ${max_temp}
+        then:
+          - switch.turn_off: "relay_1"
+          - switch.turn_off: "relay_2"
+          - homeassistant.service:
+                service: persistent_notification.create
+                data:
+                  title: "Message from ${upper_devicename}"
+                data_template:
+                  message: "${device_name_1} and ${device_name_2} turned off because temperature exceeded ${max_temp}°C"
+
+  - platform: resistance
+    id: temp_resistance_reading
+    sensor: temp_analog_reading
+    configuration: DOWNSTREAM
+    resistor: 10kOhm
+
+  - platform: adc
+    id: temp_analog_reading
+    pin: GPIO35
+    attenuation: 11db
+    update_interval: 60s
+
+  #power monitoring
+  - platform: ade7953
+    irq_pin: GPIO27 # Prevent overheating by setting this
+    voltage:
+      name: "${upper_devicename} Voltage"
+      entity_category: 'diagnostic'
+    # On the Shelly 2.5 channels are mixed ch1=B ch2=A
+    current_a:
+      name: "${device_name_2} Current"
+      entity_category: 'diagnostic'
+    current_b:
+      name: "${device_name_1} Current"
+      entity_category: 'diagnostic'
+    active_power_a:
+      name: "${device_name_2} Power"
+      id: power_channel_2
+      entity_category: 'diagnostic'
+      # active_power_a is normal, so don't multiply by -1
+      on_value_range:
+        - above: ${max_power}
+          then:
+            - switch.turn_off: "relay_2"
+            - homeassistant.service:
+                service: persistent_notification.create
+                data:
+                  title: "Message from ${upper_devicename}"
+                data_template:
+                  message: "${device_name_2} turned off because power exceeded ${max_power}W"
+    active_power_b:
+      name: "${device_name_1} Power"
+      id: power_channel_1
+      entity_category: 'diagnostic'
+      # active_power_b is inverted, so multiply by -1
+      filters:
+        - multiply: -1
+      on_value_range:
+        - above: ${max_power}
+          then:
+            - switch.turn_off: "relay_1"
+            - homeassistant.service:
+                service: persistent_notification.create
+                data:
+                  title: "Message from ${upper_devicename}"
+                data_template:
+                  message: "${device_name_1} turned off because power exceeded ${max_power}W"
+    update_interval: 30s
+
+  - platform: total_daily_energy
+    name: "${device_name_1} Daily Energy"
+    power_id: power_channel_1
+  - platform: total_daily_energy
+    name: "${device_name_2} Daily Energy"
+    power_id: power_channel_2
+
+status_led:
+  pin:
+    number: GPIO0
+    inverted: true
