@@ -7,6 +7,12 @@ substitutions:
   output_name_2: "Output 2"
   input_name_1: "Input 1"
   input_name_2: "Input 2"
+  # Home Assistant light bulb to toggle
+  bulb_name_1: "light.smart_bulb_1"
+  bulb_name_2: "light.smart_bulb_2"
+  # Relay trip limits
+  max_power: "3600.0"
+  max_temp: "80.0"
   timezone: America/Los_Angeles
   devicetype: Shelly Plus 2pm
   uptime_refresh: 60s
