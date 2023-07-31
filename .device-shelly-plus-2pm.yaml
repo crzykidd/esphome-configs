@@ -34,6 +34,7 @@ switch:
   - platform: output
     id: "relay_1"
     name: "${devicename_1} Output"
+    icon: $deviceicon_1
     output: "relay_output_1"
     restore_mode: RESTORE_DEFAULT_OFF
 

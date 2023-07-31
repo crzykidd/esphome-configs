@@ -3,6 +3,8 @@ substitutions:
   devicename_1: "Fan"
   devicename_2: "Damper"
   friendly_name: "Shop HVAC Relay"
+  devicetype: "Shelly Plus 2pm"
+  deviceicon_1: mdi:fan
   
 # Relay trip limits
   max_power: "3600.0"
