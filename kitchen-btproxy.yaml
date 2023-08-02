@@ -3,8 +3,8 @@ substitutions:
   friendly_name: Kitchen Bluetooth Proxy
   timezone: America/Los_Angeles
   devicetype: ESP32-WROOM-32
-  uptime_refresh: 60s
-  wifi_refresh: 60s
+  uptime_refresh: 300s
+  wifi_refresh: 300s
 
 esphome:
   name: ${devicename}
