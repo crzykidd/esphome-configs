@@ -20,6 +20,7 @@ esp32:
 
 # Enable logging
 logger:
+  level: debug
 
 
 esp32_ble_tracker:
