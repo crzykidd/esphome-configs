@@ -1,0 +1,37 @@
+substitutions:
+  devicename: kitchen-btproxy
+  friendly_name: Kitchen Bluetooth Proxy
+  timezone: America/Los_Angeles
+  devicetype: ESP32-WROOM-32
+  uptime_refresh: 60s
+  wifi_refresh: 60s
+
+esphome:
+  name: ${devicename}
+  name_add_mac_suffix: false
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+
+# Enable logging
+logger:
+
+
+esp32_ble_tracker:
+  scan_parameters:
+    interval: 1100ms
+    window: 1100ms
+    active: true
+
+bluetooth_proxy:
+  active: true
+
+packages:
+  wifi: !include .base-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  hass_ota_base: !include .base-hass-ota.yaml
+  update_sensors: !include .base-uptime-sensors.yaml
+  base_device: !include .device-sonoff_s31.yaml
