@@ -9,6 +9,8 @@ substitutions:
 esphome:
   name: ${devicename}
   name_add_mac_suffix: false
+  comment: $devicetype
+  friendly_name: $friendly_name
 
 esp32:
   board: esp32dev
