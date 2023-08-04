@@ -1,0 +1,60 @@
+substitutions:
+  timezone: America/Los_Angeles
+  devicetype: Merkury rgbct bulb
+  # merkury-innovations-mi-bw210-999ww-rgbct-bulb-v2.9.16
+  uptime_refresh: 60s
+  wifi_refresh: 120s
+
+esphome:
+  name: mercury-bulb-1
+  friendly_name: Merkury Bulb 1
+
+libretiny:
+  board: wb2l
+  framework:
+    version: dev
+
+packages:
+  wifi: !include .base-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  hass_ota_base: !include .base-hass-ota.yaml
+
+light:
+  - platform: rgbw
+    name: "Bulb"
+    red: output_red
+    green: output_green
+    blue:  output_blue
+    white: output_white
+    color_interlock: True  
+    effects:
+      - random:
+          name: slowRandom
+          transition_length: 2s
+          update_interval: 3s
+      - random:
+          name: "Fast Random"
+          transition_length: 4s
+          update_interval: 5s        
+
+bp5758d:
+  data_pin: P7
+  clock_pin: P8 
+    
+output:
+  - platform: bp5758d
+    id: output_green
+    channel: 2 
+    current: 15 # In mA, valid values 0-90, default 10
+  - platform: bp5758d
+    id: output_blue
+    channel: 1 
+    current: 15 # In mA, valid values 0-90, default 10
+  - platform: bp5758d
+    id: output_red
+    channel: 3 
+    current: 15 # In mA, valid values 0-90, default 10    
+  - platform: bp5758d
+    id: output_white
+    channel: 5 
+    current: 50 # In mA, valid values 0-90, default 10     
