@@ -1,4 +1,6 @@
 substitutions:
+  devicename: mercury-bulb-1
+  friendly_name: Merkury Bulb 1
   timezone: America/Los_Angeles
   devicetype: Merkury rgbct bulb
   # merkury-innovations-mi-bw210-999ww-rgbct-bulb-v2.9.16
@@ -6,8 +8,8 @@ substitutions:
   wifi_refresh: 120s
 
 esphome:
-  name: mercury-bulb-1
-  friendly_name: Merkury Bulb 1
+  name: $devicename
+  friendly_name: $friendly_name
 
 libretiny:
   board: wb2l
