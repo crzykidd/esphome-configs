@@ -20,7 +20,7 @@ esp32:
 
 # Enable logging
 logger:
-  level: VERBOSE
+  level: DEBUG
 
 esp32_ble_tracker:
   scan_parameters:
