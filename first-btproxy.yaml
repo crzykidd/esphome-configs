@@ -1,6 +1,6 @@
 substitutions:
-  devicename: kitchen-btproxy
-  friendly_name: Kitchen Bluetooth Proxy
+  devicename: first-btproxy
+  friendly_name: First Bluetooth Proxy
   timezone: America/Los_Angeles
   devicetype: ESP32-WROOM-32
   uptime_refresh: 300s
@@ -22,6 +22,8 @@ esp32:
 logger:
   level: debug
 
+wifi:
+  use_address: kitchen-btproxy.local
 
 esp32_ble_tracker:
   scan_parameters:
