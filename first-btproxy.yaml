@@ -22,9 +22,6 @@ esp32:
 logger:
   level: debug
 
-wifi:
-  use_address: kitchen-btproxy.local
-
 esp32_ble_tracker:
   scan_parameters:
     interval: 1100ms
