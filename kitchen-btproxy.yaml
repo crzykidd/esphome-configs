@@ -1,0 +1,57 @@
+substitutions:
+  devicename: kitchen-btproxy
+  friendly_name: Kitchen Bluetooth Proxy
+  timezone: America/Los_Angeles
+  devicetype: D1 Mini ESP32
+  uptime_refresh: 300s
+  wifi_refresh: 300s
+
+esphome:
+  name: ${devicename}
+  name_add_mac_suffix: false
+  comment: $devicetype
+  friendly_name: $friendly_name
+
+esp32:
+  board: wemos_d1_mini32
+  framework:
+    type: esp-idf
+
+
+# Enable logging
+logger:
+  level: debug
+
+esp32_ble_tracker:
+  scan_parameters:
+    interval: 1100ms
+    window: 1100ms
+    active: true
+
+bluetooth_proxy:
+  active: true
+
+packages:
+  wifi: !include .base-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  hass_ota_base: !include .base-hass-ota.yaml
+  update_sensors: !include .base-uptime-sensors.yaml
+
+
+debug:
+  update_interval: 60s
+
+text_sensor:
+  - platform: debug
+    device:
+      name: "Device Info"
+
+sensor:
+  - platform: debug
+    free:
+      name: "Heap Free"
+    block:
+      name: "Heap Max Block"
+    loop_time:
+      name: "Loop Time"  
+      
