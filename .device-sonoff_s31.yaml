@@ -41,7 +41,7 @@ sensor:
     unit_of_measurement: kWh
     
   - platform: cse7766
-    update_interval: 60s   
+    update_interval: $power_refresh   
     current:
       name: $friendly_name Energy Current   #Get current Amps
       accuracy_decimals: 1
