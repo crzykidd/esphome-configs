@@ -18,7 +18,7 @@ uart:
 
 binary_sensor:
     
-  - platform: gpio  #Button on Side of S31
+  - platform: gpio  #Button on Side of S31 
     pin:
       number: GPIO0
       mode: INPUT_PULLUP
