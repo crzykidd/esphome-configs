@@ -6,7 +6,11 @@ substitutions:
   devicetype: Sonoff S31
   uptime_refresh: 60s
   wifi_refresh: 120s
+<<<<<<< HEAD
   power_refresh: 5s
+=======
+  power_refresh: 10s
+>>>>>>> 4a473b4e76c7d387d36935d5e0c7c91d020e2ede
   
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
