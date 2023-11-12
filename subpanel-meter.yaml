@@ -1,6 +1,6 @@
 substitutions:
-  devicename: "subpanel-meter"
-  friendly_name: Sub Panel Meter 
+  devicename: "subpanel-meter-1"
+  friendly_name: Sub Panel Meter 1 
   timezone: America/Los_Angeles
   devicetype: Emporia Vue 2
   uptime_refresh: 60s
@@ -11,37 +11,37 @@ substitutions:
 
 # Name all ciruits and set phases
 
-  name_circuit_1: "Hot Tub A"
+  name_circuit_1: "Sub Panel In A"
   phase_circuit_1: phase_a
-  name_circuit_2: "Hot Tub B"
+  name_circuit_2: "Sub Panel In B"
   phase_circuit_2: phase_b
-  name_circuit_3: Tesla 1 A
+  name_circuit_3: Circuit 3
   phase_circuit_3: phase_a
-  name_circuit_4: Tesla 1 B
+  name_circuit_4: Circuit 4
   phase_circuit_4: phase_b
-  name_circuit_5: Heat Pump A
+  name_circuit_5: Circuit 5
   phase_circuit_5: phase_a
-  name_circuit_6: Heat Pump B
+  name_circuit_6: Circuit 6
   phase_circuit_6: phase_b
-  name_circuit_7: Shop A
+  name_circuit_7: Circuit 7
   phase_circuit_7: phase_a
-  name_circuit_8: Shop B
+  name_circuit_8: Circuit 8
   phase_circuit_8: phase_b
-  name_circuit_9: Kitchen Fridge
+  name_circuit_9: Circuit 9
   phase_circuit_9: phase_b
-  name_circuit_10: Office
+  name_circuit_10: Circuit 10
   phase_circuit_10: phase_b
-  name_circuit_11: Downstairs Fridge
+  name_circuit_11: Circuit 11
   phase_circuit_11: phase_b
-  name_circuit_12: Garage Freezer
+  name_circuit_12: Circuit 12
   phase_circuit_12: phase_a
-  name_circuit_13: Furnace Fan
+  name_circuit_13: Circuit 13
   phase_circuit_13: phase_a
-  name_circuit_14: Master Bath
+  name_circuit_14: Circuit 14
   phase_circuit_14: phase_a
-  name_circuit_15: Tesla 2 A
+  name_circuit_15: Circuit 15
   phase_circuit_15: phase_a
-  name_circuit_16: Tesla 2 B
+  name_circuit_16: Circuit 16
   phase_circuit_16: phase_b
 
 packages:
@@ -208,70 +208,70 @@ sensor:
     power_id: total_power
     accuracy_decimals: 0
   
-# HOT TUB Combined Power 
+# Sub Panel Combined Power 
   - platform: template
-    name: "Hot Tub Total Power"
+    name: "Sub Panel Total Power"
     lambda: return id(cir1).state + id(cir2).state;
     update_interval: 2.88s
-    id: hot_tub_total_power
+    id: sub_panel_total_power
     unit_of_measurement: "W"  
 
   - platform: total_daily_energy
-    name: "Hot Tub Total Daily Energy"
-    power_id: hot_tub_total_power
+    name: "Sub Panel Total Daily Energy"
+    power_id: sub_panel_total_power
     accuracy_decimals: 0
 
 # Tesla 1 combined Power 
-  - platform: template
-    name: "Tesla 1 Total Power"
-    lambda: return id(cir3).state + id(cir4).state;
-    update_interval: 2.88s
-    id: tesla_1_total_power
-    unit_of_measurement: "W"  
+#  - platform: template
+#    name: "Tesla 1 Total Power"
+#    lambda: return id(cir3).state + id(cir4).state;
+#    update_interval: 2.88s
+#    id: tesla_1_total_power
+#    unit_of_measurement: "W"  
 
-  - platform: total_daily_energy
-    name: "Tesla 1 Total Daily Energy"
-    power_id: tesla_1_total_power
-    accuracy_decimals: 0
+#  - platform: total_daily_energy
+#    name: "Tesla 1 Total Daily Energy"
+#    power_id: tesla_1_total_power
+#    accuracy_decimals: 0
 
 # Heat Pump combined Power 
-  - platform: template
-    name: "Heat Pump Total Power"
-    lambda: return id(cir5).state + id(cir6).state + id(cir13).state;
-    update_interval: 2.88s
-    id: heat_pump_total_power
-    unit_of_measurement: "W"  
+#  - platform: template
+#    name: "Heat Pump Total Power"
+#    lambda: return id(cir5).state + id(cir6).state + id(cir13).state;
+#    update_interval: 2.88s
+#    id: heat_pump_total_power
+#    unit_of_measurement: "W"  
 
-  - platform: total_daily_energy
-    name: "Heat Pump Total Daily Energy"
-    power_id: heat_pump_total_power
-    accuracy_decimals: 0
+#  - platform: total_daily_energy
+#    name: "Heat Pump Total Daily Energy"
+#    power_id: heat_pump_total_power
+#    accuracy_decimals: 0
 
 # Shop combined Power 
-  - platform: template
-    name: "Shop Total Power"
-    lambda: return id(cir7).state + id(cir8).state;
-    update_interval: 2.88s
-    id: shop_total_power
-    unit_of_measurement: "W"  
+#  - platform: template
+#    name: "Shop Total Power"
+#    lambda: return id(cir7).state + id(cir8).state;
+#    update_interval: 2.88s
+#    id: shop_total_power
+#    unit_of_measurement: "W"  
 
-  - platform: total_daily_energy
-    name: "Shop Total Daily Energy"
-    power_id: shop_total_power
-    accuracy_decimals: 0
+#  - platform: total_daily_energy
+#    name: "Shop Total Daily Energy"
+#    power_id: shop_total_power
+#    accuracy_decimals: 0
 
 # Tesla 2 combined Power 
-  - platform: template
-    name: "Tesla 2 Total Power"
-    lambda: return id(cir15).state + id(cir16).state;
-    update_interval: 2.88s
-    id: tesla_2_total_power
-    unit_of_measurement: "W"  
+#  - platform: template
+#    name: "Tesla 2 Total Power"
+#    lambda: return id(cir15).state + id(cir16).state;
+#    update_interval: 2.88s
+#    id: tesla_2_total_power
+#    unit_of_measurement: "W"  
 
-  - platform: total_daily_energy
-    name: "Tesla 2 Total Daily Energy"
-    power_id: tesla_2_total_power
-    accuracy_decimals: 0
+#  - platform: total_daily_energy
+#    name: "Tesla 2 Total Daily Energy"
+#    power_id: tesla_2_total_power
+#    accuracy_decimals: 0
 
   - platform: template
     name: "Balance Power"
