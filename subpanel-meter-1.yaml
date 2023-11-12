@@ -90,7 +90,7 @@ logger:
 preferences:
   # the default of 1min is far too short--flash chip is rated
   # for approx 100k writes.
-  flash_write_interval: "2h"
+  flash_write_interval: "4h"
 
 output:
   - platform: ledc
@@ -146,7 +146,7 @@ sensor:
     phases:
       - id: phase_a  # Verify that this specific phase/leg is connected to correct input wire color on device listed below
         input: BLACK  # Vue device wire color
-        calibration: 0.022  # 0.022 is used as the default as starting point but may need adjusted to ensure accuracy
+        calibration: 0.025  # 0.022 is used as the default as starting point but may need adjusted to ensure accuracy
         # To calculate new calibration value use the formula <in-use calibration value> * <accurate voltage> / <reporting voltage>
         voltage:
           name: "Phase A Voltage"
