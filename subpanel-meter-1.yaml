@@ -11,9 +11,9 @@ substitutions:
 
 # Name all ciruits and set phases
 
-  name_circuit_1: "Sub Panel In A"
+  name_circuit_1: "VSP1 Tigo Outlets"
   phase_circuit_1: phase_a
-  name_circuit_2: "Sub Panel In B"
+  name_circuit_2: "VSP1 UP Fans/Cab Lights"
   phase_circuit_2: phase_b
   name_circuit_3: Circuit 3
   phase_circuit_3: phase_a
@@ -209,17 +209,17 @@ sensor:
     accuracy_decimals: 0
   
 # Sub Panel Combined Power 
-  - platform: template
-    name: "Sub Panel Total Power"
-    lambda: return id(cir1).state + id(cir2).state;
-    update_interval: 2.88s
-    id: sub_panel_total_power
-    unit_of_measurement: "W"  
+#  - platform: template
+#    name: "Sub Panel Total Power"
+#    lambda: return id(cir1).state + id(cir2).state;
+#    update_interval: 2.88s
+#    id: sub_panel_total_power
+#    unit_of_measurement: "W"  
 
-  - platform: total_daily_energy
-    name: "Sub Panel Total Daily Energy"
-    power_id: sub_panel_total_power
-    accuracy_decimals: 0
+#  - platform: total_daily_energy
+#    name: "Sub Panel Total Daily Energy"
+#    power_id: sub_panel_total_power
+#    accuracy_decimals: 0
 
 # Tesla 1 combined Power 
 #  - platform: template
