@@ -171,32 +171,32 @@ sensor:
           name: "Phase A Power"
           id: phase_a_power
           device_class: power
-          filters: [*moving_avg, *pos]
+          filters: [*moving_avg, *pos, multiply: 0.001]
       - phase_id: phase_b
         input: "B"  # Verify the CT going to this device input also matches the phase/leg
         power:
           name: "Phase B Power"
           id: phase_b_power
           device_class: power
-          filters: [*moving_avg, *pos]
+          filters: [*moving_avg, *pos, multiply: 0.001]
       # Pay close attention to set the phase_id for each breaker by matching it to the phase/leg it connects to in the panel
-      - { phase_id: $phase_circuit_1, input:  "1", power: { name:  "$name_circuit_1 Power", id:  cir1, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_2, input:  "2", power: { name:  "$name_circuit_2 Power", id:  cir2, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_3, input:  "3", power: { name:  "$name_circuit_3 Power", id:  cir3, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_4, input:  "4", power: { name:  "$name_circuit_4 Power", id:  cir4, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_1, input:  "1", power: { name:  "$name_circuit_1 Power", id:  cir1, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_2, input:  "2", power: { name:  "$name_circuit_2 Power", id:  cir2, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_3, input:  "3", power: { name:  "$name_circuit_3 Power", id:  cir3, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_4, input:  "4", power: { name:  "$name_circuit_4 Power", id:  cir4, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
       #- { phase_id: $phase_circuit_5, input:  "5", power: { name:  "$name_circuit_5 Power", id:  cir5, filters: [ *moving_avg, *pos, multiply: 2 ] } }
-      - { phase_id: $phase_circuit_5, input:  "5", power: { name:  "$name_circuit_5 Power", id:  cir5, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_6, input:  "6", power: { name:  "$name_circuit_6 Power", id:  cir6, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_7, input:  "7", power: { name:  "$name_circuit_7 Power", id:  cir7, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_8, input:  "8", power: { name:  "$name_circuit_8 Power", id:  cir8, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_9, input:  "9", power: { name:  "$name_circuit_9 Power", id:  cir9, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_10, input: "10", power: { name: "$name_circuit_10 Power", id: cir10, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_11, input: "11", power: { name: "$name_circuit_11 Power", id: cir11, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_12, input: "12", power: { name: "$name_circuit_12 Power", id: cir12, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_13, input: "13", power: { name: "$name_circuit_13 Power", id: cir13, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_14, input: "14", power: { name: "$name_circuit_14 Power", id: cir14, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_15, input: "15", power: { name: "$name_circuit_15 Power", id: cir15, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_16, input: "16", power: { name: "$name_circuit_16 Power", id: cir16, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_5, input:  "5", power: { name:  "$name_circuit_5 Power", id:  cir5, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_6, input:  "6", power: { name:  "$name_circuit_6 Power", id:  cir6, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_7, input:  "7", power: { name:  "$name_circuit_7 Power", id:  cir7, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_8, input:  "8", power: { name:  "$name_circuit_8 Power", id:  cir8, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_9, input:  "9", power: { name:  "$name_circuit_9 Power", id:  cir9, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_10, input: "10", power: { name: "$name_circuit_10 Power", id: cir10, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_11, input: "11", power: { name: "$name_circuit_11 Power", id: cir11, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_12, input: "12", power: { name: "$name_circuit_12 Power", id: cir12, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_13, input: "13", power: { name: "$name_circuit_13 Power", id: cir13, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_14, input: "14", power: { name: "$name_circuit_14 Power", id: cir14, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_15, input: "15", power: { name: "$name_circuit_15 Power", id: cir15, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_16, input: "16", power: { name: "$name_circuit_16 Power", id: cir16, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
   - platform: template
     name: "Total Power"
     lambda: return id(phase_a_power).state + id(phase_b_power).state;
@@ -207,7 +207,7 @@ sensor:
     name: "Total Daily Energy"
     power_id: total_power
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 0
+    accuracy_decimals: 0        
   
 # Sub Panel Combined Power 
 #  - platform: template
