@@ -206,6 +206,7 @@ sensor:
   - platform: total_daily_energy
     name: "Total Daily Energy"
     power_id: total_power
+    unit_of_measurement: 'kWh'
     accuracy_decimals: 0
   
 # Sub Panel Combined Power 
@@ -299,6 +300,7 @@ sensor:
   - platform: total_daily_energy
     name: "Balance Daily Energy"
     power_id: balance_power
+    unit_of_measurement: 'kWh'
     accuracy_decimals: 0
   - { power_id:  cir1, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_1 Daily Energy" }
   - { power_id:  cir2, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_2 Daily Energy" }
