@@ -171,17 +171,17 @@ sensor:
           name: "Phase A Power"
           id: phase_a_power
           device_class: power
-          filters: [*moving_avg, *pos, multiply: 0.001]
+          filters: [*moving_avg, *pos]
       - phase_id: phase_b
         input: "B"  # Verify the CT going to this device input also matches the phase/leg
         power:
           name: "Phase B Power"
           id: phase_b_power
           device_class: power
-          filters: [*moving_avg, *pos, multiply: 0.001]
+          filters: [*moving_avg, *pos]
       # Pay close attention to set the phase_id for each breaker by matching it to the phase/leg it connects to in the panel
-      - { phase_id: $phase_circuit_1, input:  "1", power: { name:  "$name_circuit_1 Power", id:  cir1, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
-      - { phase_id: $phase_circuit_2, input:  "2", power: { name:  "$name_circuit_2 Power", id:  cir2, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
+      - { phase_id: $phase_circuit_1, input:  "1", power: { name:  "$name_circuit_1 Power", id:  cir1, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_2, input:  "2", power: { name:  "$name_circuit_2 Power", id:  cir2, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_3, input:  "3", power: { name:  "$name_circuit_3 Power", id:  cir3, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
       - { phase_id: $phase_circuit_4, input:  "4", power: { name:  "$name_circuit_4 Power", id:  cir4, filters: [ *moving_avg, *pos, multiply: 0.001 ] } }
       #- { phase_id: $phase_circuit_5, input:  "5", power: { name:  "$name_circuit_5 Power", id:  cir5, filters: [ *moving_avg, *pos, multiply: 2 ] } }
@@ -302,8 +302,11 @@ sensor:
     power_id: balance_power
     unit_of_measurement: 'kWh'
     accuracy_decimals: 3
-  - { power_id:  cir1, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_1 Daily Energy", unit_of_measurement: "kWh" }
-  - { power_id:  cir2, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_2 Daily Energy" }
+    filters:
+      # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+  - { power_id:  cir1, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_1 Daily Energy", unit_of_measurement: "kWh", multiply: 0.001 }
+  - { power_id:  cir2, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_2 Daily Energy", unit_of_measurement: "kWh", multiply: 0.001 }
   - { power_id:  cir3, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_3 Daily Energy" }
   - { power_id:  cir4, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_4 Daily Energy" }
   - { power_id:  cir5, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_5 Daily Energy" }
