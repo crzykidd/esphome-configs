@@ -308,17 +308,17 @@ sensor:
       - multiply: 0.001
   - { power_id:  cir1, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_1 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
   - { power_id:  cir2, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_2 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id:  cir3, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_3 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id:  cir4, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_4 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id:  cir5, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_5 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id:  cir6, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_6 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id:  cir7, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_7 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id:  cir8, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_8 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id:  cir9, platform: total_daily_energy, accuracy_decimals: 0, name:  "$name_circuit_9 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id: cir10, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_10 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id: cir11, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_11 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id: cir12, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_12 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id: cir13, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_13 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id: cir14, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_14 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-  - { power_id: cir15, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_15 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-#  - { power_id: cir16, platform: total_daily_energy, accuracy_decimals: 0, name: "$name_circuit_16 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir3, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_3 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir4, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_4 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir5, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_5 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir6, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_6 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir7, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_7 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir8, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_8 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir9, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_9 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir10, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_10 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir11, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_11 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir12, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_12 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir13, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_13 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir14, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_14 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir15, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_15 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+#  - { power_id: cir16, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_16 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
