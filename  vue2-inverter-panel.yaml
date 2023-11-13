@@ -25,7 +25,7 @@ substitutions:
   phase_circuit_6: phase_b
   name_circuit_7: "22-GR-Laundry Lights"
   phase_circuit_7: phase_a
-  name_circuit_8: "9-Washer-Dryer"
+  name_circuit_8: "09-Washer-Dryer"
   phase_circuit_8: phase_a
   name_circuit_9: "11-Kitchen Lights"
   phase_circuit_9: phase_b
@@ -48,8 +48,7 @@ packages:
   wifi: !include .base-staticip-wifi.yaml
   web_server: !include .base-web_server.yaml
   update_sensors: !include .base-uptime-sensors.yaml
-#  update_sensors: !include .base-uptime-sensors.yaml
-#  base_device: !include .device-sonoff_s31.yaml
+
 
 esphome:
   name: ${devicename}
@@ -69,13 +68,13 @@ external_components:
       - emporia_vue
 
       
-  - source: github://pr#3500
-    components:
-      # list all components modified by this Pull Request here
-      - web_server
-      - web_server_idf
-      - web_server_base
-      - captive_portal
+#  - source: github://pr#3500
+#    components:
+#      # list all components modified by this Pull Request here
+#      - web_server
+#      - web_server_idf
+#      - web_server_base
+#      - captive_portal
 
 esp32:
   board: esp32dev
