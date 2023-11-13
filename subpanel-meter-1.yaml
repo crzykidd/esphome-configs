@@ -294,7 +294,7 @@ sensor:
         id(cir12).state -
         id(cir13).state -
         id(cir14).state -
-        id(cir15).state -
+        id(cir15).state);
 #        id(cir16).state);
     update_interval: 2.88s
     id: balance_power
