@@ -41,8 +41,8 @@ substitutions:
   phase_circuit_14: phase_a
   name_circuit_15: "23-Critical Servers"
   phase_circuit_15: phase_b
-  name_circuit_16: Circuit 16
-  phase_circuit_16: phase_b
+  name_circuit_16: "26-Office/Servers"
+  phase_circuit_16: phase_a
 
 packages:
   wifi: !include .base-staticip-wifi.yaml
@@ -195,7 +195,7 @@ sensor:
       - { phase_id: $phase_circuit_13, input: "13", power: { name: "$name_circuit_13 Power", id: cir13, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_14, input: "14", power: { name: "$name_circuit_14 Power", id: cir14, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_15, input: "15", power: { name: "$name_circuit_15 Power", id: cir15, filters: [ *moving_avg, *pos ] } }
-#      - { phase_id: $phase_circuit_16, input: "16", power: { name: "$name_circuit_16 Power", id: cir16, filters: [ *moving_avg, *pos  ] } }
+      - { phase_id: $phase_circuit_16, input: "16", power: { name: "$name_circuit_16 Power", id: cir16, filters: [ *moving_avg, *pos  ] } }
   - platform: template
     name: "Total Power"
     lambda: return id(phase_a_power).state + id(phase_b_power).state;
@@ -293,8 +293,8 @@ sensor:
         id(cir12).state -
         id(cir13).state -
         id(cir14).state -
-        id(cir15).state);
-#        id(cir16).state);
+        id(cir15).state -
+        id(cir16).state);
     update_interval: 2.88s
     id: balance_power
     unit_of_measurement: "W"
@@ -321,4 +321,4 @@ sensor:
   - { power_id: cir13, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_13 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
   - { power_id: cir14, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_14 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
   - { power_id: cir15, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_15 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
-#  - { power_id: cir16, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_16 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir16, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_16 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
