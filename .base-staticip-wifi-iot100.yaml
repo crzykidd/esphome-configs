@@ -1,6 +1,6 @@
 wifi:
-  ssid: !secret iot_ssid
-  password: !secret iotnetwork_password
+  ssid: !secret iot100_ssid
+  password: !secret iot100_password
   power_save_mode: none
   manual_ip:
     static_ip: $static_ip
