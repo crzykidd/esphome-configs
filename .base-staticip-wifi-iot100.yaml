@@ -1,6 +1,7 @@
 wifi:
   ssid: !secret iot100_ssid
   password: !secret iot100_password
+  use_address: 192.168.20.209
   power_save_mode: none
   manual_ip:
     static_ip: $static_ip
