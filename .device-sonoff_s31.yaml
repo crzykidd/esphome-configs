@@ -23,16 +23,16 @@ binary_sensor:
       number: GPIO0
       mode: INPUT_PULLUP
       inverted: True
-    name: $friendly_name Button
+    name: Button
     on_press:
       - switch.toggle: relay  #Toggle the state of the relay
   - platform: status   #Get Current status of API connection
-    name: $friendly_name Status
+    name: Status
 
 sensor:
 
   - platform: total_daily_energy   #Calculate daily Energy usage
-    name: $friendly_name Energy Today
+    name: Energy Today
     power_id: S31_power
     device_class: energy
     state_class: total_increasing  #uses total_increasing so HA counts energy correctly.
@@ -43,20 +43,20 @@ sensor:
   - platform: cse7766
     update_interval: $power_refresh
     current:
-      name: $friendly_name Energy Current   #Get current Amps
+      name: Energy Current   #Get current Amps
       accuracy_decimals: 1
     voltage:
-      name: $friendly_name Energy Voltage   #Get Current Volts
+      name: Energy Voltage   #Get Current Volts
       accuracy_decimals: 1
     power:
-      name: $friendly_name Energy Power  #Get current Power draw in Watts
+      name: Energy Power  #Get current Power draw in Watts
       accuracy_decimals: 1
       id: S31_power
       device_class: power
       state_class: measurement
       force_update: true 
     energy:   
-      name: $friendly_name Energy Total   #Get Energy total since last flash.
+      name: Energy Total   #Get Energy total since last flash.
       filters:
         - multiply: 0.001
       unit_of_measurement: kWh  #changes from Wh to kWh
@@ -65,7 +65,7 @@ sensor:
  
 switch:
   - platform: gpio
-    name: $friendly_name   #Actual switch to turn device on and off.
+    name: switch   #Actual switch to turn device on and off.
     pin: GPIO12
     id: relay
     restore_mode: $restore_mode

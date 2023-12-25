@@ -1,11 +1,11 @@
 substitutions:
   name: "living-lamp-table"
-  devicename: "living-lamp-table"  
   friendly_name: Living Room Lamp Table
   timezone: America/Los_Angeles
   devicetype: Kauf Bulb BLF10
-  uptime_refresh: 60s
-  wifi_refresh: 120s
+  disable_entities:  "true"    # set to "false" to have all entities show up in Home Assistant automatically
+  disable_webserver: "false"   # set to "true" to disable webserver listening on port 80.    
+
 esphome:
   name: ${name}
   name_add_mac_suffix: false
@@ -16,7 +16,7 @@ wifi:
   password: !secret iotnetwork_password
   fast_connect: false
   ap:
-    ssid: $devicename
+    ssid: $name
     password: !secret ap_wifi
 captive_portal: 
 sensor:
@@ -46,3 +46,4 @@ ota:   #Enable OTA updates
 packages:
   
   Kauf.RGBWW: github://KaufHA/kauf-rgbww-bulbs/kauf-bulb.yaml
+

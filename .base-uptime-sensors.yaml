@@ -2,7 +2,7 @@ sensor:
     
   - platform: uptime
     id: uptime_sensor     #gets uptime in human readable format
-    name: $friendly_name uptime in seconds
+    name: uptime in seconds
     update_interval: $uptime_refresh
     on_raw_value:  # lambda code converts seconds to friendly format
       then:
@@ -24,12 +24,12 @@ sensor:
               ).c_str();
 text_sensor:
   - platform: template
-    name: $friendly_name Friendly Uptime  #Human Readable format
+    name: Friendly Uptime  #Human Readable format
     id: uptime_human
     entity_category: diagnostic
     icon: mdi:clock-start
   - platform: template
-    name: "$friendly_name Current Time"   #show current time of device
+    name: "Current Time"   #show current time of device
     lambda: |-
       char str[18];
       time_t currTime = id(homeassistant_time).now().timestamp;

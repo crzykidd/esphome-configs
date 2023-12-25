@@ -7,34 +7,35 @@ substitutions:
   uptime_refresh: 300s
   wifi_refresh: 300s
   power_refresh: 30s
-  static_ip: 192.168.50.122
-  gateway: 192.168.50.1
-  subnet: 255.255.254.0  
+  static_ip: 192.168.100.14
+  gateway: 192.168.100.1
+  subnet: 255.255.255.0  
+  dns1: 192.168.50.13
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
   restore_mode: RESTORE_DEFAULT_ON
   
 
-debug:
-  update_interval: 60s
+#debug:
+#  update_interval: 60s
 
-text_sensor:
-  - platform: debug
-    device:
-      name: "Device Info"
+#text_sensor:
+#  - platform: debug
+#    device:
+#      name: "Device Info"
 
-sensor:
-  - platform: debug
-    free:
-      name: "Heap Free"
-    fragmentation:
-      name: "Heap Fragmentation"
-    block:
-      name: "Heap Max Block"
-    loop_time:
-      name: "Loop Time"  
+#sensor:
+#  - platform: debug
+#    free:
+#      name: "Heap Free"
+#    fragmentation:
+#      name: "Heap Fragmentation"
+#    block:
+#      name: "Heap Max Block"
+#    loop_time:
+#      name: "Loop Time"  
 packages:
-  wifi: !include .base-wifi.yaml
+  wifi: !include .base-staticip-wifi-iot100.yaml
   web_server: !include .base-web_server.yaml
   hass_ota_base: !include .base-hass-ota.yaml
   update_sensors: !include .base-uptime-sensors.yaml
