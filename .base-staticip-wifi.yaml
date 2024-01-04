@@ -6,7 +6,7 @@ wifi:
     static_ip: $static_ip
     gateway: $gateway
     subnet: $subnet  
-  
+    dns1: 192.168.50.13
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: $devicename

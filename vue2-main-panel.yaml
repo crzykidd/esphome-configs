@@ -1,0 +1,332 @@
+substitutions:
+  devicename: "vue2-main-panel"
+  friendly_name: Vue2 Main Panel
+  timezone: America/Los_Angeles
+  devicetype: Emporia Vue 2 
+  uptime_refresh: 60s
+  wifi_refresh: 120s
+  static_ip: 192.168.50.121
+  gateway: 192.168.50.1
+  subnet: 255.255.254.0
+
+# Name all ciruits and set phases
+
+  name_circuit_1: "02-Generator Feed A"
+  phase_circuit_1: phase_a
+  name_circuit_2: "04-Generator Feed B"
+  phase_circuit_2: phase_b
+  name_circuit_3: "06-Feed to Inverter A"
+  phase_circuit_3: phase_a
+  name_circuit_4: "08-Feed to Inverter B"
+  phase_circuit_4: phase_b
+  name_circuit_5: "10-Shop A"
+  phase_circuit_5: phase_a
+  name_circuit_6: "12-Shop B"
+  phase_circuit_6: phase_b
+  name_circuit_7: "14/16-Chargeverter A/B"
+  phase_circuit_7: phase_a
+  name_circuit_8: "18-Dishwasher"
+  phase_circuit_8: phase_a
+  name_circuit_9: "20-Master Bath Heat"
+  phase_circuit_9: phase_a
+  name_circuit_10: "26/28-Tess 2 A/B"
+  phase_circuit_10: phase_a
+  name_circuit_11: "17-Garage Outlets"
+  phase_circuit_11: phase_a
+  name_circuit_12: "13/15-Tess 1 A/B"
+  phase_circuit_12: phase_a
+  name_circuit_13: "05-Heat Pump A"
+  phase_circuit_13: phase_a
+  name_circuit_14: "07-Heat Pump B"
+  phase_circuit_14: phase_b
+  name_circuit_15: "01-Hot Tub A"
+  phase_circuit_15: phase_a
+  name_circuit_16: "03-Hot Tub B"
+  phase_circuit_16: phase_b
+
+packages:
+  wifi: !include .base-staticip-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  update_sensors: !include .base-uptime-sensors.yaml
+
+
+esphome:
+  name: ${devicename}
+  friendly_name: ${friendly_name}
+  comment: ${devicetype}
+
+api:   #Enable API
+  encryption: 
+    key: !secret hass_encryption_key
+  
+ota:   #Enable OTA updates
+  password: !secret ota_password
+
+external_components:
+  - source: github://emporia-vue-local/esphome@dev
+    components:
+      - emporia_vue
+
+      
+#  - source: github://pr#3500
+#    components:
+#      # list all components modified by this Pull Request here
+#      - web_server
+#      - web_server_idf
+#      - web_server_base
+#      - captive_portal
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    version: recommended
+
+# Enable logging
+logger:
+
+
+preferences:
+  # the default of 1min is far too short--flash chip is rated
+  # for approx 100k writes.
+  flash_write_interval: "4h"
+
+output:
+  - platform: ledc
+    pin: GPIO12
+    id: buzzer
+
+light:
+  - platform: status_led
+    name: "D3_LED"
+    pin: 23
+    restore_mode: ALWAYS_ON
+
+i2c:
+  sda: 21
+  scl: 22
+  scan: false
+  frequency: 200kHz  # recommended range is 50-200kHz
+  id: i2c_a
+
+
+time:
+  - platform: sntp
+    id: my_time
+    timezone: $timezone
+    on_time_sync:
+      then:
+        - logger.log: "Synchronized system clock"
+
+# these are called references in YAML. They allow you to reuse
+# this configuration in each sensor, while only defining it once
+.defaultfilters:
+  - &moving_avg
+    # we capture a new sample every 0.24 seconds, so the time can
+    # be calculated from the number of samples as n * 0.24.
+    sliding_window_moving_average:
+      # we average over the past 2.88 seconds
+      window_size: 12
+      # we push a new value every 1.44 seconds
+      send_every: 6
+  - &invert
+    # invert and filter out any values below 0.
+    lambda: 'return max(-x, 0.0f);'
+  - &pos
+    # filter out any values below 0.
+    lambda: 'return max(x, 0.0f);'
+  - &abs
+    # take the absolute value of the value
+    lambda: 'return abs(x);'
+
+sensor:
+  - platform: emporia_vue
+    i2c_id: i2c_a
+    phases:
+      - id: phase_a  # Verify that this specific phase/leg is connected to correct input wire color on device listed below
+        input: BLACK  # Vue device wire color
+        calibration: 0.02275  # 0.022 is used as the default as starting point but may need adjusted to ensure accuracy
+        # To calculate new calibration value use the formula <in-use calibration value> * <accurate voltage> / <reporting voltage>
+        voltage:
+          name: "Phase A Voltage"
+          id: phase_a_voltage
+          filters: [*moving_avg, *pos]
+        frequency:
+          name: "Phase A Frequency"
+          filters: [*moving_avg, *pos]
+      - id: phase_b  # Verify that this specific phase/leg is connected to correct input wire color on device listed below
+        input: RED  # Vue device wire color
+        calibration: 0.0215  # 0.022 is used as the default as starting point but may need adjusted to ensure accuracy
+        # To calculate new calibration value use the formula <in-use calibration value> * <accurate voltage> / <reporting voltage>
+        voltage:
+          name: "Phase B Voltage"
+          id: phase_b_voltage
+          filters: [*moving_avg, *pos]
+        phase_angle:
+          name: "Phase B Phase Angle"
+          filters: [*moving_avg, *pos]
+    ct_clamps:
+      - phase_id: phase_a
+        input: "A"  # Verify the CT going to this device input also matches the phase/leg
+        power:
+          name: "Phase A Power"
+          id: phase_a_power
+          device_class: power
+          filters: [*moving_avg, *pos]
+      - phase_id: phase_b
+        input: "B"  # Verify the CT going to this device input also matches the phase/leg
+        power:
+          name: "Phase B Power"
+          id: phase_b_power
+          device_class: power
+          filters: [*moving_avg, *pos]
+      # Pay close attention to set the phase_id for each breaker by matching it to the phase/leg it connects to in the panel
+      - { phase_id: $phase_circuit_1, input:  "1", power: { name:  "$name_circuit_1 Power", id:  cir1, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_2, input:  "2", power: { name:  "$name_circuit_2 Power", id:  cir2, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_3, input:  "3", power: { name:  "$name_circuit_3 Power", id:  cir3, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_4, input:  "4", power: { name:  "$name_circuit_4 Power", id:  cir4, filters: [ *moving_avg, *pos ] } }
+      #- { phase_id: $phase_circuit_5, input:  "5", power: { name:  "$name_circuit_5 Power", id:  cir5, filters: [ *moving_avg, *pos, multiply: 2 ] } }
+      - { phase_id: $phase_circuit_5, input:  "5", power: { name:  "$name_circuit_5 Power", id:  cir5, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_6, input:  "6", power: { name:  "$name_circuit_6 Power", id:  cir6, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_7, input:  "7", power: { name:  "$name_circuit_7 Power", id:  cir7, filters: [ *moving_avg, *pos, multiply: 2 ] } }
+      - { phase_id: $phase_circuit_8, input:  "8", power: { name:  "$name_circuit_8 Power", id:  cir8, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_9, input:  "9", power: { name:  "$name_circuit_9 Power", id:  cir9, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_10, input: "10", power: { name: "$name_circuit_10 Power", id: cir10, filters: [ *moving_avg, *pos, multiply: 2 ] } }
+      - { phase_id: $phase_circuit_11, input: "11", power: { name: "$name_circuit_11 Power", id: cir11, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_12, input: "12", power: { name: "$name_circuit_12 Power", id: cir12, filters: [ *moving_avg, *pos, multiply: 2 ] } }
+      - { phase_id: $phase_circuit_13, input: "13", power: { name: "$name_circuit_13 Power", id: cir13, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_14, input: "14", power: { name: "$name_circuit_14 Power", id: cir14, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_15, input: "15", power: { name: "$name_circuit_15 Power", id: cir15, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_16, input: "16", power: { name: "$name_circuit_16 Power", id: cir16, filters: [ *moving_avg, *pos  ] } }
+  - platform: template
+    name: "Total Power"
+    lambda: return id(phase_a_power).state + id(phase_b_power).state;
+    update_interval: 2.88s
+    id: total_power
+    unit_of_measurement: "W"
+  - platform: total_daily_energy
+    name: "Total Daily Energy"
+    power_id: total_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 3
+    filters: 
+      - multiply: 0.001  
+  - platform: template
+    name: "Total Voltage"
+    lambda: return id(phase_a_voltage).state + id(phase_b_voltage).state;
+    unit_of_measurement: "V"
+
+
+# Sub Panel Combined Power 
+#  - platform: template
+#    name: "Sub Panel Total Power"
+#    lambda: return id(cir1).state + id(cir2).state;
+#    update_interval: 2.88s
+#    id: sub_panel_total_power
+#    unit_of_measurement: "W"  
+
+#  - platform: total_daily_energy
+#    name: "Sub Panel Total Daily Energy"
+#    power_id: sub_panel_total_power
+#    accuracy_decimals: 0
+
+# Tesla 1 combined Power 
+#  - platform: template
+#    name: "Tesla 1 Total Power"
+#    lambda: return id(cir3).state + id(cir4).state;
+#    update_interval: 2.88s
+#    id: tesla_1_total_power
+#    unit_of_measurement: "W"  
+
+#  - platform: total_daily_energy
+#    name: "Tesla 1 Total Daily Energy"
+#    power_id: tesla_1_total_power
+#    accuracy_decimals: 0
+
+# Heat Pump combined Power 
+#  - platform: template
+#    name: "Heat Pump Total Power"
+#    lambda: return id(cir5).state + id(cir6).state + id(cir13).state;
+#    update_interval: 2.88s
+#    id: heat_pump_total_power
+#    unit_of_measurement: "W"  
+
+#  - platform: total_daily_energy
+#    name: "Heat Pump Total Daily Energy"
+#    power_id: heat_pump_total_power
+#    accuracy_decimals: 0
+
+# Shop combined Power 
+#  - platform: template
+#    name: "Shop Total Power"
+#    lambda: return id(cir7).state + id(cir8).state;
+#    update_interval: 2.88s
+#    id: shop_total_power
+#    unit_of_measurement: "W"  
+
+#  - platform: total_daily_energy
+#    name: "Shop Total Daily Energy"
+#    power_id: shop_total_power
+#    accuracy_decimals: 0
+
+# Tesla 2 combined Power 
+#  - platform: template
+#    name: "Tesla 2 Total Power"
+#    lambda: return id(cir15).state + id(cir16).state;
+#    update_interval: 2.88s
+#    id: tesla_2_total_power
+#    unit_of_measurement: "W"  
+
+#  - platform: total_daily_energy
+#    name: "Tesla 2 Total Daily Energy"
+#    power_id: tesla_2_total_power
+#    accuracy_decimals: 0
+
+  - platform: template
+    name: "Balance Power"
+    lambda: !lambda |-
+      return max(0.0f, id(total_power).state -
+        id( cir1).state -
+        id( cir2).state -
+        id( cir3).state -
+        id( cir4).state -
+        id( cir5).state -
+        id( cir6).state -
+        id( cir7).state -
+        id( cir8).state -
+        id( cir9).state -
+        id(cir10).state -
+        id(cir11).state -
+        id(cir12).state -
+        id(cir13).state -
+        id(cir14).state -
+        id(cir15).state -
+        id(cir16).state);
+    update_interval: 2.88s
+    id: balance_power
+    unit_of_measurement: "W"
+  - platform: total_daily_energy
+    name: "Balance Daily Energy"
+    power_id: balance_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 3
+    filters:
+      # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+  - { power_id:  cir1, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_1 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir2, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_2 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir3, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_3 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir4, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_4 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir5, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_5 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir6, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_6 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir7, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_7 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir8, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_8 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id:  cir9, platform: total_daily_energy, accuracy_decimals: 3, name:  "$name_circuit_9 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir10, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_10 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir11, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_11 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir12, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_12 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir13, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_13 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir14, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_14 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir15, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_15 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+  - { power_id: cir16, platform: total_daily_energy, accuracy_decimals: 3, name: "$name_circuit_16 Daily Energy", unit_of_measurement: "kWh", filters: [ multiply: 0.001] }
+

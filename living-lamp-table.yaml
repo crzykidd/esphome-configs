@@ -5,7 +5,11 @@ substitutions:
   devicetype: Kauf Bulb BLF10
   disable_entities:  "true"    # set to "false" to have all entities show up in Home Assistant automatically
   disable_webserver: "false"   # set to "true" to disable webserver listening on port 80.    
-
+  uptime_refresh: 60s
+  wifi_refresh: 120s
+  static_ip: 192.168.51.112
+  gateway: 192.168.50.1
+  subnet: 255.255.254.0
 esphome:
   name: ${name}
   name_add_mac_suffix: false
@@ -15,6 +19,10 @@ wifi:
   ssid: !secret iot_ssid
   password: !secret iotnetwork_password
   fast_connect: false
+  manual_ip:
+    static_ip: $static_ip
+    gateway: $gateway
+    subnet: $subnet  
   ap:
     ssid: $name
     password: !secret ap_wifi
@@ -35,6 +43,7 @@ web_server:
   auth:
     username: !secret web_server_username
     password: !secret web_server_password
+
 
 api:   #Enable API
   encryption: 
