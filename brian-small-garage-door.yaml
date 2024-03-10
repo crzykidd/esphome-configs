@@ -1,0 +1,100 @@
+---
+substitutions:
+  id_prefix: small_garage_rollup_door
+  devicename: small_garage_rollup_door
+  friendly_name: "Small Garage Rollup Door"
+  uart_tx_pin: D1
+  uart_rx_pin: D2
+  input_obst_pin: D7
+  status_door_pin: D0
+  status_obstruction_pin: D8
+  dry_contact_open_pin: D5
+  dry_contact_close_pin: D6
+  dry_contact_light_pin: D3
+  wifi_refresh: 60s
+  uptime_refresh: 60s
+  timezone: America/Los_Angeles
+
+esphome:
+  name: ${id_prefix}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: false
+  project:
+    name: ratgdo.esphome
+    version: "2.5i"
+
+esp8266:
+  board: d1_mini
+  restore_from_flash: true
+
+dashboard_import:
+  package_import_url: github://ratgdo/esphome-ratgdo/v25iboard.yaml@main
+
+packages:
+  remote_package:
+    url: https://github.com/ratgdo/esphome-ratgdo
+    files: [base.yaml]
+    refresh: 1s
+
+time:
+  - platform: homeassistant   #uses Home Assistant as time source
+    id: homeassistant_time
+    timezone: $timezone
+        
+text_sensor:
+  - platform: template
+    name: Uptime
+    update_interval: $uptime_refresh
+    entity_category: diagnostic
+    icon: mdi:clock-start
+    lambda: |-
+      auto s = millis() / 1000;
+      return str_snprintf("%02d:%02d:%02d:%02d", 11, s / 86400, s / 3600 % 24, s / 60 % 60, s % 60);
+  - platform: template
+    name: "Current Time"   #show current time of device
+    lambda: |-
+      char str[18];
+      time_t currTime = id(homeassistant_time).now().timestamp;
+      strftime(str, sizeof(str), "%y-%m-%d %H:%M:%S", localtime(&currTime));
+      return  { str };
+    update_interval: $uptime_refresh    
+    entity_category: diagnostic
+    icon: mdi:clock-outline
+  - platform: wifi_info
+    ip_address:
+      name: IP Address
+      entity_category: diagnostic
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    device_class: signal_strength
+    update_interval: $wifi_refresh
+
+web_server:    #sets up Web Server
+  port: 80
+  auth:
+    username: !secret web_server_username
+    password: !secret brian_web_server_password
+
+
+api:
+  id: api_server
+
+ota:
+
+improv_serial:
+
+wifi:
+  ssid: !secret brian_iot_ssid
+  password: !secret brian_iotnetwork_password
+  power_save_mode: none
+ 
+  
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: $devicename
+    password: !secret brian_ap_wifi
+#captive_portal:   #used so you can modify wifi/upload bin file etc.
+
+logger:

@@ -35,14 +35,14 @@ substitutions:
   phase_circuit_11: phase_a
   name_circuit_12: "13/15-Tess 1 A/B"
   phase_circuit_12: phase_a
-  name_circuit_13: "05-Heat Pump A"
+  name_circuit_13: "Heat Pump"
   phase_circuit_13: phase_a
-  name_circuit_14: "07-Heat Pump B"
-  phase_circuit_14: phase_b
-  name_circuit_15: "01-Hot Tub A"
+  name_circuit_14: "Hot Tub"
+  phase_circuit_14: phase_a
+  name_circuit_15: "Not Used"
   phase_circuit_15: phase_a
-  name_circuit_16: "03-Hot Tub B"
-  phase_circuit_16: phase_b
+  name_circuit_16: "Not Used"
+  phase_circuit_16: phase_a
 
 packages:
   wifi: !include .base-staticip-wifi.yaml
@@ -194,8 +194,8 @@ sensor:
       - { phase_id: $phase_circuit_10, input: "10", power: { name: "$name_circuit_10 Power", id: cir10, filters: [ *moving_avg, *pos, multiply: 2 ] } }
       - { phase_id: $phase_circuit_11, input: "11", power: { name: "$name_circuit_11 Power", id: cir11, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_12, input: "12", power: { name: "$name_circuit_12 Power", id: cir12, filters: [ *moving_avg, *pos, multiply: 2 ] } }
-      - { phase_id: $phase_circuit_13, input: "13", power: { name: "$name_circuit_13 Power", id: cir13, filters: [ *moving_avg, *pos ] } }
-      - { phase_id: $phase_circuit_14, input: "14", power: { name: "$name_circuit_14 Power", id: cir14, filters: [ *moving_avg, *pos ] } }
+      - { phase_id: $phase_circuit_13, input: "13", power: { name: "$name_circuit_13 Power", id: cir13, filters: [ *moving_avg, *pos, multiply: 2 ] } }
+      - { phase_id: $phase_circuit_14, input: "14", power: { name: "$name_circuit_14 Power", id: cir14, filters: [ *moving_avg, *pos, multiply: 2 ] } }
       - { phase_id: $phase_circuit_15, input: "15", power: { name: "$name_circuit_15 Power", id: cir15, filters: [ *moving_avg, *pos ] } }
       - { phase_id: $phase_circuit_16, input: "16", power: { name: "$name_circuit_16 Power", id: cir16, filters: [ *moving_avg, *pos  ] } }
   - platform: template
@@ -257,17 +257,20 @@ sensor:
 #    accuracy_decimals: 0
 
 # Shop combined Power 
-#  - platform: template
-#    name: "Shop Total Power"
-#    lambda: return id(cir7).state + id(cir8).state;
-#    update_interval: 2.88s
-#    id: shop_total_power
-#    unit_of_measurement: "W"  
+  - platform: template
+    name: "Shop Total Power"
+    lambda: return id(cir5).state + id(cir6).state;
+    update_interval: 2.88s
+    id: shop_total_power
+    unit_of_measurement: "W"  
 
-#  - platform: total_daily_energy
-#    name: "Shop Total Daily Energy"
-#    power_id: shop_total_power
-#    accuracy_decimals: 0
+  - platform: total_daily_energy
+    name: "Shop Total Daily Energy"
+    power_id: shop_total_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 3
+    filters: 
+      - multiply: 0.001  
 
 # Tesla 2 combined Power 
 #  - platform: template
