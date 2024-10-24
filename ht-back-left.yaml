@@ -6,6 +6,10 @@ substitutions:
   devicetype: Kauf Bulb BR30
   uptime_refresh: 60s
   wifi_refresh: 300s
+  static_ip: 192.168.51.108
+  gateway: 192.168.50.1
+  subnet: 255.255.254.0
+  
   
 esphome:
   name: ${name}
@@ -18,16 +22,22 @@ wifi:
   ap:
     ssid: $devicename
     password: !secret ap_wifi
-captive_portal: 
-sensor:
-  - platform: wifi_signal
-    name: "${friendly_name} WiFi Signal"
-    device_class: signal_strength
-    update_interval: $wifi_refresh
+  manual_ip:
+    static_ip: $static_ip
+    gateway: $gateway
+    subnet: $subnet  
+    dns1: 192.168.50.13
 
-  - platform: uptime
-    name: "Uptime"
-    update_interval: $uptime_refresh
+captive_portal: 
+#sensor:
+#  - platform: wifi_signal
+#    name: "${friendly_name} WiFi Signal"
+#    device_class: signal_strength
+#    update_interval: $wifi_refresh
+
+#  - platform: uptime
+#    name: "Uptime"
+#    update_interval: $uptime_refresh
 
       
 web_server:
@@ -37,8 +47,8 @@ web_server:
     password: !secret web_server_password
 
 api:   #Enable API
-  encryption: 
-    key: !secret hass_encryption_key
+#  encryption: 
+#    key: !secret hass_encryption_key
   password: !secret api_password
 ota:   #Enable OTA updates
   password: !secret ota_password

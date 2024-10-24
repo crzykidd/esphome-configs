@@ -1,0 +1,52 @@
+---
+substitutions:
+  id_prefix: ratgdo_tess2
+  devicename: ratgdo_tess2
+  friendly_name: "Tess 2 Opener"
+  uart_tx_pin: D1
+  uart_rx_pin: D2
+  input_obst_pin: D7
+  status_door_pin: D0
+  status_obstruction_pin: D8
+  dry_contact_open_pin: D5
+  dry_contact_close_pin: D6
+  dry_contact_light_pin: D3
+  static_ip: 192.168.51.128
+  gateway: 192.168.50.1
+  subnet: 255.255.254.0
+  dns1: 192.168.50.13 
+  wifi_refresh: 60s
+  uptime_refresh: 60s
+  timezone: America/Los_Angeles
+esphome:
+  name: ${id_prefix}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: false
+  project:
+    name: ratgdo.esphome
+    version: "2.5i"
+
+esp8266:
+  board: d1_mini
+  restore_from_flash: true
+
+dashboard_import:
+  package_import_url: github://ratgdo/esphome-ratgdo/v25iboard.yaml@main
+
+packages:
+  remote_package:
+    url: https://github.com/ratgdo/esphome-ratgdo
+    files: [base.yaml]
+    refresh: 1s
+  wifi: !include .base-staticip-wifi.yaml
+  web_server: !include .base-web_server.yaml
+  update_sensors: !include .base-uptime-sensors.yaml
+
+api:
+  id: api_server
+
+ota:
+
+improv_serial:
+
+logger:

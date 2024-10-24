@@ -6,6 +6,9 @@ substitutions:
   devicetype: Kauf Bulb BLF10
   uptime_refresh: 60s
   wifi_refresh: 120s
+  static_ip: 192.168.51.113
+  gateway: 192.168.50.1
+  subnet: 255.255.254.0
   
 esphome:
   name: ${name}
@@ -16,6 +19,10 @@ wifi:
   ssid: !secret iot_ssid
   password: !secret iotnetwork_password
   fast_connect: false
+  manual_ip:
+    static_ip: $static_ip
+    gateway: $gateway
+    subnet: $subnet  
   ap:
     ssid: $devicename
     password: !secret ap_wifi
