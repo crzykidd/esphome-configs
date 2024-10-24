@@ -3,7 +3,7 @@ esphome:
   platform: ESP8266
   board: d1_mini_pro
 
-
+ 
 #Attic Sensor 2 is located in the middle of the house and measures temp and humidity.
 
 substitutions:
