@@ -3,7 +3,8 @@ api:   #Enable API
     key: !secret hass_encryption_key
 #  password: !secret api_password
 ota:   #Enable OTA updates
-  password: !secret ota_password
+  - platform: esphome
+    password: !secret ota_password
 switch: 
   - platform: restart    #Adds a reboot switch in Home Assistant to power cycle the device
     name: Reboot  

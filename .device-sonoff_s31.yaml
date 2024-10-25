@@ -14,7 +14,7 @@ logger:
 uart:
   rx_pin: RX
   baud_rate: 4800
-
+  parity: EVEN
 
 binary_sensor:
     
@@ -41,13 +41,17 @@ sensor:
     unit_of_measurement: kWh
     
   - platform: cse7766
-    update_interval: $power_refresh
+    #update_interval: $power_refresh
     current:
       name: Energy Current   #Get current Amps
       accuracy_decimals: 1
+      filters:
+        - throttle_average: ${power_refresh}      
     voltage:
       name: Energy Voltage   #Get Current Volts
       accuracy_decimals: 1
+      filters:
+        - throttle_average: ${power_refresh}
     power:
       name: Energy Power  #Get current Power draw in Watts
       accuracy_decimals: 1
@@ -55,10 +59,14 @@ sensor:
       device_class: power
       state_class: measurement
       force_update: true 
+      filters:
+        - throttle_average: ${power_refresh}
+
     energy:   
       name: Energy Total   #Get Energy total since last flash.
       filters:
         - multiply: 0.001
+        - throttle_average: ${power_refresh}
       unit_of_measurement: kWh  #changes from Wh to kWh
       device_class: energy
       state_class: total_increasing  #uses total_increasing so HA counts energy correctly.
