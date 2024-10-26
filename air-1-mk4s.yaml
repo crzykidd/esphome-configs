@@ -1,0 +1,19 @@
+substitutions:
+  name: air-1-mk4s
+  friendly_name: AIR-1-mk4s
+  $devicename: air-1-mk4s
+  $wifi_refresh: 120s
+packages:
+  ApolloAutomation.AIR-1: github://ApolloAutomation/AIR-1/Integrations/ESPHome/AIR-1.yaml
+  wifi: !include .base-wifi.yaml
+
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  encryption:
+    key: !secret hass_encryption_key
+
+
+
