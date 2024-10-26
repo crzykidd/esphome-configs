@@ -7,13 +7,17 @@ substitutions:
   uptime_refresh: 60s
   wifi_refresh: 120s
   power_refresh: 30s
+  static_ip: 192.168.100.22
+  gateway: 192.168.100.1
+  subnet: 255.255.255.0
+  dns1: 192.168.50.13 
   
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
   restore_mode: RESTORE_DEFAULT_ON
 
 packages:
-  wifi: !include .base-wifi.yaml
+  wifi: !include .base-staticip-wifi-iot100.yaml
   web_server: !include .base-web_server.yaml
   hass_ota_base: !include .base-hass-ota.yaml
   update_sensors: !include .base-uptime-sensors.yaml

@@ -3,9 +3,13 @@ substitutions:
   friendly_name: AIR-1-mk4s
   $devicename: air-1-mk4s
   $wifi_refresh: 120s
+  static_ip: 192.168.100.23
+  gateway: 192.168.100.1
+  subnet: 255.255.255.0
+  dns1: 192.168.50.13 
 packages:
   ApolloAutomation.AIR-1: github://ApolloAutomation/AIR-1/Integrations/ESPHome/AIR-1.yaml
-  wifi: !include .base-wifi.yaml
+  wifi: !include .base-staticip-wifi-iot100.yaml
 
 esphome:
   name: ${name}
