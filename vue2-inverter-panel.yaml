@@ -64,7 +64,7 @@ ota:   #Enable OTA updates
 
 external_components:
   - source: github://emporia-vue-local/esphome@dev
-    components:
+    components: 
       - emporia_vue
 
       
