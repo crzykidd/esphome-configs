@@ -3,15 +3,10 @@ substitutions:
   devicename: desktop-ups-outlet
   friendly_name: Desktop UPS Outlet
   timezone: America/Los_Angeles
-  devicetype: Sonoff S31
+  comment: Sonoff S31 - dhcp - iotnet
   uptime_refresh: 300s
   wifi_refresh: 300s
   power_refresh: 30s
-  static_ip: 192.168.100.21
-  gateway: 192.168.100.1
-  subnet: 255.255.255.0
-  dns1: 192.168.50.13 
-  
 # Set the restore mode for after power outage:  
 # More info:  https://esphome.io/components/switch/gpio.html
   restore_mode: RESTORE_DEFAULT_ON
@@ -34,7 +29,7 @@ substitutions:
 #    loop_time:
 #      name: "Loop Time"  
 packages:
-  wifi: !include .base-staticip-wifi-iot100.yaml
+  wifi: !include .base-wifi-iot100.yaml
   web_server: !include .base-web_server.yaml
   hass_ota_base: !include .base-hass-ota.yaml
   update_sensors: !include .base-uptime-sensors.yaml

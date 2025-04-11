@@ -1,7 +1,7 @@
 wifi:
   ssid: !secret iot_ssid
   password: !secret iotnetwork_password
-  domain: .local
+  domain: .home.arpa
   # power_save_mode: none
   
   # Enable fallback hotspot (captive portal) in case wifi connection fails

@@ -1,0 +1,83 @@
+# From .base-sonoff_s31.yaml
+# Start config for Sonoff S31 Configuration
+
+esphome:
+  name: $devicename
+  comment: $devicetype
+  friendly_name: $friendly_name
+
+esp8266:
+  board: esp12e  
+  early_pin_init: false
+
+logger:
+  baud_rate: 0 # (UART logging interferes with cse7766)
+uart:
+  rx_pin: RX
+  baud_rate: 4800
+  parity: EVEN
+
+binary_sensor:
+    
+  - platform: gpio  #Button on Side of S31 
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: Button
+    on_press:
+      - switch.toggle: relay  #Toggle the state of the relay
+  - platform: status   #Get Current status of API connection
+    name: Status
+
+sensor:
+
+  - platform: total_daily_energy   #Calculate daily Energy usage
+    name: Energy Today
+    power_id: S31_power
+    device_class: energy
+    state_class: total_increasing  #uses total_increasing so HA counts energy correctly.
+    filters:
+      - multiply: 0.001   #changes from Wh to kWh
+    unit_of_measurement: kWh
+    
+  - platform: cse7766
+    #update_interval: $power_refresh
+    current:
+      name: Energy Current   #Get current Amps
+      accuracy_decimals: 1
+      filters:
+        - throttle_average: ${power_refresh}      
+    voltage:
+      name: Energy Voltage   #Get Current Volts
+      accuracy_decimals: 1
+      filters:
+        - throttle_average: ${power_refresh}
+    power:
+      name: Energy Power  #Get current Power draw in Watts
+      accuracy_decimals: 1
+      id: S31_power
+      device_class: power
+      state_class: measurement
+      force_update: true 
+      filters:
+        - throttle_average: ${power_refresh}
+
+    energy:   
+      name: Energy Total   #Get Energy total since last flash.
+      filters:
+        - multiply: 0.001
+        - throttle_average: ${power_refresh}
+      unit_of_measurement: kWh  #changes from Wh to kWh
+      device_class: energy
+      state_class: total_increasing  #uses total_increasing so HA counts energy correctly.
+ 
+switch:
+  - platform: gpio
+    name: switch   #Actual switch to turn device on and off.
+    pin: GPIO12
+    id: relay
+    restore_mode: $restore_mode
+
+status_led:
+  pin: GPIO13
