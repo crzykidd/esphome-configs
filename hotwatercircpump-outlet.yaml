@@ -3,8 +3,8 @@ substitutions:
   devicename: hotwatercircpump-outlet
   friendly_name: Hotwater Circ Pump Outlet
   timezone: America/Los_Angeles
-  devicetype: Sonoff S31
-  uptime_refresh: 60s
+  comment: Sonoff S31 - dhcp - iotnet
+  uptime_refresh: 120s
   wifi_refresh: 120s
   power_refresh: 5s
   
@@ -14,7 +14,7 @@ substitutions:
   
 
 packages:
-  wifi: !include .base-wifi.yaml
+  wifi: !include .base-wifi-iot100.yaml
   web_server: !include .base-web_server.yaml
   hass_ota_base: !include .base-hass-ota.yaml
   update_sensors: !include .base-uptime-sensors.yaml

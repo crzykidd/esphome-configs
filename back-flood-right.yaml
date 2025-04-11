@@ -3,7 +3,7 @@ substitutions:
   devicename: back-flood-right
   friendly_name: Back Flood Right
   timezone: America/Los_Angeles
-  devicetype: Sonoff mini
+  comment: Sonoff mini - dhcp - iotnet
   uptime_refresh: 300s
   wifi_refresh: 300s
 # Set the restore mode for after power outage:  
@@ -12,10 +12,8 @@ substitutions:
   
 
 packages:
-  wifi: !include .base-wifi.yaml
+  wifi: !include .base-wifi-iot100.yaml
   web_server: !include .base-web_server.yaml
   hass_ota_base: !include .base-hass-ota.yaml
   update_sensors: !include .base-uptime-sensors.yaml
   base_device: !include .device-sonoff_mini.yaml
-
-
