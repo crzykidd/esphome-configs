@@ -2,26 +2,27 @@ substitutions:
   devicename: kitchen-hotwater
   friendly_name: "Kitchen Hotwater"
   timezone: America/Los_Angeles
-  devicetype: D1 Mini ESP32
-  uptime_refresh: 300s
+  comment: D1 Mini ESP32 - dhcp - iotnet
+  uptime_refresh: 60s
   wifi_refresh: 300s
 
 esphome:
   name: ${devicename}
   name_add_mac_suffix: false
-  comment: $devicetype
+  comment: $comment
   friendly_name: $friendly_name
 
 esp32:
   board: wemos_d1_mini32
 
-dallas:
-  - pin: GPIO19
-    update_interval: 10s
+one_wire:
+  - platform: gpio
+    pin: GPIO19
+
 
 
 sensor:
-  - platform: dallas
+  - platform: dallas_temp
     address: 0x760516a3682cff28
     name: "Kitchen Hotwater Temperature"
     unit_of_measurement: "°C"
@@ -37,7 +38,7 @@ logger:
 
 
 packages:
-  wifi: !include .base-wifi.yaml
+  wifi: !include .base-wifi-iot100.yaml
   web_server: !include .base-web_server.yaml
   hass_ota_base: !include .base-hass-ota.yaml
   update_sensors: !include .base-uptime-sensors.yaml
