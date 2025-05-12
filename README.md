@@ -14,4 +14,4 @@ The Attic nodes are custom temp/humidity devices.
 
 Moved to using the new package handler.   This allowed me to move a set of standard sensors for Home Assistant to .base-uptime=sensors.yaml as well as a number of other things.
 
-
+This is now hosted private in gitea and pushed to github.
