@@ -1,10 +1,13 @@
 esphome:
-  name: attic_node_garage
-  platform: ESP8266
+  name: attic-node-garage
+  friendly_name: Attic Node Garage
+  comment: ESP8266 temp/humidity -- iotnet
+
+esp8266:
   board: d1_mini_pro
 
 substitutions:
-  devicename: attic_node_garage
+  devicename: attic-node-garage
   upper_devicename: "Attic Node Garage"
   friendly_name: Attic Node Garage
   wifi_refresh: 300sec
@@ -13,17 +16,18 @@ substitutions:
   devicetype: ESP8266 d1_mini_pro
 
 packages:
-  wifi: !include .base-wifi.yaml
+  wifi: !include .base-wifi-iot100.yaml
   web_server: !include .base-web_server.yaml
   hass_ota_base: !include .base-hass-ota.yaml
+  hass_time_base: !include .base-hass-time.yaml
   update_sensors: !include .base-uptime-sensors.yaml  
 
-wifi:
-  ssid: !secret iot_ssid
-  password: !secret iotnetwork_password
-  domain: !secret domain
-  fast_connect: false
-  use_address: 192.168.50.116
+#wifi:
+#  ssid: !secret iot_ssid
+#  password: !secret iotnetwork_password
+#  domain: !secret domain
+#  fast_connect: false
+#  use_address: 192.168.50.116
 
 # Enable logging
 logger:

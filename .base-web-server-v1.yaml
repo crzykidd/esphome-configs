@@ -1,0 +1,6 @@
+web_server:    #sets up Web Server
+#  port: 80
+  version: 1
+  auth:
+    username: !secret web_server_username
+    password: !secret web_server_password

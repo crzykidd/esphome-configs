@@ -1,0 +1,55 @@
+#Attic Sensor 2 is located in the middle of the house and measures temp and humidity.
+
+esphome:
+  name: attic-node-house
+  friendly_name: Attic Node House
+  comment: ESP8266 temp/humidity -- iotnet
+
+esp8266:
+  board: d1_mini_pro
+
+substitutions:
+  devicename: attic-node-house
+  upper_devicename: "Attic Node House"
+  friendly_name: Attic Node House
+  wifi_refresh: 300sec
+  uptime_refresh: 60sec
+  timezone: America/Los_Angeles
+  devicetype: ESP8266 d1_mini_pro
+
+packages:
+  wifi: !include .base-wifi-iot100.yaml
+  web_server: !include .base-web_server.yaml
+  hass_ota_base: !include .base-hass-ota.yaml
+  hass_time_base: !include .base-hass-time.yaml
+  update_sensors: !include .base-uptime-sensors.yaml  
+
+# Enable logging
+logger:
+
+ 
+i2c:
+  sda: 4
+  scl: 5
+sensor:
+  - platform: am2320
+    temperature:
+      name: "$upper_devicename Temperature"
+      unit_of_measurement: "°C"
+    humidity:
+      name: "$upper_devicename Humidity"
+    update_interval: 60sec
+
+  - platform: uptime
+    name: "$upper_devicename runtime"
+    update_interval: 120sec
+  
+    
+ 
+  
+switch:
+  - platform: restart
+    name: "$upper_devicename restart"
+
+
+

@@ -35,6 +35,7 @@ packages:
   wifi: !include .base-wifi.yaml
   #web_server: !include .base-web_server.yaml
   hass_ota_base: !include .base-hass-ota.yaml
+  hass_time_base: !include .base-hass-time.yaml
   update_sensors: !include .base-uptime-sensors.yaml
 
 
